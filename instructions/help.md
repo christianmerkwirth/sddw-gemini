@@ -54,20 +54,7 @@ sddw — Spec-Driven Development Workflow
 
 Scan `.sddw/` directory for feature directories. A feature directory is any subdirectory of `.sddw/` (exclude `code-analysis.md` and other files).
 
-For each feature, show a one-line summary with status indicator:
-
-```
-Features in .sddw/:
-  <feature-a>    [requirements → code-analysis → design → implement 2/4]
-  <feature-b>    [requirements → design]
-  <feature-c>    [requirements]
-```
-
-Status detection:
-- `requirements.md` exists → requirements done
-- `.sddw/code-analysis.md` exists → code analysis done
-- `design/tasks/task-N-*.md` → design done (count total tasks)
-- `implement/tasks/task-N-*.done.md` → count completed tasks
+For each feature, show a one-line summary with status indicator (see Status Logic in Common Rules).
 
 If `.sddw/` does not exist or has no feature directories, say:
 > "No features found. Start with `/sddw:requirements <feature-name>`"
@@ -76,31 +63,7 @@ If `.sddw/` does not exist or has no feature directories, say:
 
 ## Feature Status (`status <feature-name>`)
 
-Read the feature directory and show detailed progress:
-
-```
-Feature: <feature-name>
-
-  Requirements:    ✓ completed
-    └─ .sddw/<feature-name>/requirements.md
-
-  Code Analysis:   ✓ exists (last updated: <date>)
-    └─ .sddw/code-analysis.md
-    (or: ○ skipped — no code-analysis.md found)
-
-  Design:          ✓ completed
-    └─ .sddw/<feature-name>/design/tasks/
-
-  Tasks:           2 of 4 complete
-    1. task-1-<slug>    ✓ done
-    2. task-2-<slug>    ✓ done
-    3. task-3-<slug>    ○ pending
-    4. task-4-<slug>    ○ pending (Depends on: task-3)
-```
-
-For completed tasks, if a `.done.md` file exists, show a brief summary from it.
-
-For pending tasks with dependencies, show the `Depends on:` field.
+Read the feature directory and show detailed progress following the Status Logic in Common Rules.
 
 If the feature directory does not exist:
 > "Feature '<feature-name>' not found. Run `/sddw:help list` to see available features."

@@ -6,4 +6,10 @@ prompt = """
 
 # INSTRUCTIONS
 !{cat ${extensionPath}/instructions/chat.md}
+
+# SPECS
+!{cat ${extensionPath}/specs/requirements.md}
+!{cat ${extensionPath}/specs/code-analysis.md}
+!{cat ${extensionPath}/specs/design-task.md}
+!{cat ${extensionPath}/specs/task-completion.md}
 """
