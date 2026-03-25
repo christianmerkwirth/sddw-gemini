@@ -1,0 +1,19 @@
+prompt = """
+<feature_name> {{args}} </feature_name>
+
+# COMMON RULES
+!{cat ${extensionPath}/instructions/common.md}
+
+# INSTRUCTIONS
+!{cat ${extensionPath}/instructions/code-analysis.md}
+
+# QUESTIONNAIRE
+!{cat ${extensionPath}/questionnaires/code-analysis.md}
+
+# SPECS
+!{cat ${extensionPath}/specs/code-analysis.md}
+
+# NEXT STEP
+After the user approves the code analysis, suggest:
+> `/sddw:design <feature-name>`
+"""

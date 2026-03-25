@@ -1,0 +1,9 @@
+prompt = """
+<feature_name> {{args}} </feature_name>
+
+# COMMON RULES
+!{cat ${extensionPath}/instructions/common.md}
+
+# INSTRUCTIONS
+!{cat ${extensionPath}/instructions/chat.md}
+"""

@@ -1,0 +1,19 @@
+prompt = """
+<feature_name> {{args}} </feature_name>
+
+# COMMON RULES
+!{cat ${extensionPath}/instructions/common.md}
+
+# INSTRUCTIONS
+!{cat ${extensionPath}/instructions/design.md}
+
+# QUESTIONNAIRE
+!{cat ${extensionPath}/questionnaires/design.md}
+
+# SPECS
+!{cat ${extensionPath}/specs/design-task.md}
+
+# NEXT STEP
+After the user approves the design, suggest:
+> `/sddw:implement <feature-name> --task 1`
+"""

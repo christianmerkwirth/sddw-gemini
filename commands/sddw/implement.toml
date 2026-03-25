@@ -1,0 +1,21 @@
+prompt = """
+<feature_name> {{args}} </feature_name>
+
+# COMMON RULES
+!{cat ${extensionPath}/instructions/common.md}
+
+# INSTRUCTIONS
+!{cat ${extensionPath}/instructions/implement.md}
+
+# QUESTIONNAIRE
+!{cat ${extensionPath}/questionnaires/implement.md}
+
+# SPECS
+!{cat ${extensionPath}/specs/design-task.md}
+!{cat ${extensionPath}/specs/task-completion.md}
+
+# NEXT STEP
+After completing a task, suggest the next unblocked task:
+> `/sddw:implement <feature-name> --task <next-N>`
+When all tasks are complete, congratulate and summarise what was built.
+"""

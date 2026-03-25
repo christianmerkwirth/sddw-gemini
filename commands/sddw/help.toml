@@ -1,0 +1,9 @@
+prompt = """
+<subcommand> {{args}} </subcommand>
+
+# COMMON RULES
+!{cat ${extensionPath}/instructions/common.md}
+
+# INSTRUCTIONS
+!{cat ${extensionPath}/instructions/help.md}
+"""
