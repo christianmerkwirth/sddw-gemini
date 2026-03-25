@@ -1,0 +1,142 @@
+# Requirements Questionnaire
+
+Three-phase dialog to gather enough context to write the requirements spec.
+
+**Critical decisions (`--critical-only`):** project path, scope boundaries, prohibitions.
+
+---
+
+## Phase 1: Discover
+
+*In `--critical-only`: infer non-critical context autonomously, but ask the user about project path, scope boundaries, and prohibitions. In `--auto`: perform discovery fully autonomously.*
+
+Understand the feature and its context. One question at a time, follow the thread.
+
+**Step 1 — Project location:**
+> "Where does this feature's code live? Is it the current directory, or a different project?"
+
+Use `ask_user` with `type: "choice"` and options: current directory (`.`) or "Other — I'll specify a path". Wait for response.
+
+**Step 2 — Open:**
+> "Describe the feature you want to build. What problem does it solve?"
+
+Use `ask_user` with `type: "text"`. Wait for response.
+
+**Step 3 — Follow up** on what they said. Pick ONE:
+- **Follow energy** — whatever they emphasized, dig into that
+- **Challenge vagueness** — "users" means who? "simple" means how? "fast" means what?
+- **Make abstract concrete** — "walk me through using this"
+- **Clarify ambiguity** — "when you say X, do you mean A or B?"
+
+Use `ask_user` with `type: "choice"` with 2-4 interpretations as options when possible. Otherwise use `type: "text"`.
+
+Wait for response.
+
+**Step 4+** — Continue one question at a time until the context checklist is covered:
+- [ ] What the feature does (concrete enough to write Purpose)
+- [ ] Who uses it and why (enough for User Stories)
+- [ ] What should NOT happen (boundaries, prohibitions)
+- [ ] What "done" looks like (observable outcomes)
+- [ ] Testing approach (TDD, test-after, no tests — and why)
+
+Do NOT walk through this checklist in order. Weave questions naturally based on what's missing.
+
+---
+
+## Phase 2: Research & Propose
+
+Based on discovery, research the problem space and propose ONE section at a time. Wait for approval before moving to the next.
+
+### 2.1 Research
+
+Depending on the feature, research:
+- **Web search** — SOTA approaches, common patterns, existing solutions, relevant packages
+- **Codebase analysis** — existing implementations, conventions, patterns to follow or avoid
+- **Domain knowledge** — industry standards, security requirements, compliance needs
+
+### 2.2 Propose (one section at a time)
+
+Present each section separately. Wait for user approval before proposing the next.
+
+*In `--critical-only`: decide Purpose, User Stories, FRs, Acceptance Criteria, and Testing Approach autonomously. Pause only for Constraints (scope boundaries and prohibitions) — present these for user approval. In `--auto`: decide all sections autonomously.*
+
+**Section 1 — Purpose:**
+Use `ask_user` with `type: "choice"` presenting 2 framings:
+- Option 1: [Framing A — focused on problem]
+- Option 2: [Framing B — focused on outcome]
+Question: "Which framing works better, or would you adjust?"
+
+Wait for response. Lock in approved Purpose.
+
+**Section 2 — User Stories:**
+> "I identified these user journeys:"
+> 1. [Story A] — [why this matters]
+> 2. [Story B] — [why this matters]
+> 3. [Story C] — [why this matters]
+> "Would you adjust, add, or remove any?"
+
+Use `ask_user` with `type: "yesno"` or `type: "text"` as appropriate. Wait for response. Lock in approved stories.
+
+**Section 3 — Functional Requirements:**
+> "Here are the functional requirements I'd suggest, ordered by priority:"
+> - FR-01: [requirement] (SHALL) — [rationale]
+> - FR-02: [requirement] (SHALL) — [rationale]
+> - FR-03: [requirement] (SHOULD) — [rationale]
+> - FR-04: [requirement] (SHALL NOT) — [rationale from research]
+> "Agree, or want to change priorities?"
+
+Use `ask_user` with `type: "yesno"` or `type: "text"`. Wait for response. Lock in approved FRs.
+
+**Section 4 — Acceptance Criteria:**
+> "For FR-01, I'd test these scenarios:"
+> - Happy path: [Given/When/Then]
+> - Failure path: [Given/When/Then]
+> - Edge case: [Given/When/Then]
+> "Missing any scenarios?"
+
+Use `ask_user` with `type: "yesno"` or `type: "text"`. Wait for response. Repeat for each FR, one at a time.
+
+**Section 5 — Constraints:**
+> "Based on the codebase and your description, I'd set these boundaries:"
+> - In Scope: [list]
+> - Out of Scope: [list with reasoning]
+> - Prohibitions: [list with reasoning]
+> "Anything to add or move?"
+
+Use `ask_user` with `type: "yesno"` or `type: "text"`. Wait for response. Lock in approved constraints.
+
+**Section 6 — Testing Approach:**
+Use `ask_user` with `type: "choice"` and options:
+- **TDD (Recommended)** — write failing tests first, then implement to pass
+- **Test-after** — implement first, add tests after
+- **Selective TDD** — TDD for business logic/APIs, skip for config/glue code
+- **No tests** — skip testing (e.g., prototype, spike)
+Question: "How do you want to handle testing for this feature?"
+
+Wait for response. Lock in testing approach — this carries through to the implement step.
+
+### Rules for proposing:
+- SHALL propose ONE section at a time, wait for approval, then move to next
+- SHALL present options sorted by relevance, strongest first
+- SHALL include rationale for each option (from research or codebase analysis)
+- SHALL explicitly mark what came from research vs assumption
+- User can accept, modify, or propose their own input for any section
+
+---
+
+## Phase 3: Confirm & Generate
+
+Once all sections are approved (or decided in `--auto` mode):
+
+> "Ready to generate the requirements spec? Here's what I'll write:"
+> - Purpose: [summary]
+> - User Stories: [count] stories
+> - Functional Requirements: [count] FRs
+> - Acceptance Criteria: [count] scenarios
+> - Constraints: [in/out/prohibitions summary]
+
+Use `ask_user` with `type: "yesno"`. User confirms → generate spec to `.sddw/<feature-name>/requirements.md`
+
+*In `--critical-only`: still present this summary and wait for confirmation. In `--auto`: generate directly.*
+
+If user wants changes → return to the relevant section in Phase 2.
