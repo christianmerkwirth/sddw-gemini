@@ -13,13 +13,13 @@ Also available for [Claude Code](https://github.com/sermakarevich/sddw).
 ## Install
 
 ```bash
-gemini extensions install https://github.com/sermakarevich/sddw-gemini
+gemini extensions install https://github.com/christianmerkwirth/sddw-gemini
 ```
 
 For development (link from local repo):
 
 ```bash
-git clone https://github.com/sermakarevich/sddw-gemini
+git clone https://github.com/christianmerkwirth/sddw-gemini
 cd sddw-gemini
 gemini extensions link .
 ```
