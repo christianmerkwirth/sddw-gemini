@@ -186,6 +186,8 @@ Create the `implement/tasks/` directory if it does not exist. The report documen
 - `.sddw/code-analysis.md` exists → code analysis done
 - `design/tasks/task-N-*.md` → design done (count total tasks)
 - `implement/tasks/task-N-*.done.md` → count completed tasks
+- `verify/report.md` exists → verification done (read result from Summary)
+- `self-improve/report.md` exists → self-improve done (read applied/skipped counts from Summary)
 
 ### Feature Status (`status <feature-name>`)
 
@@ -209,6 +211,15 @@ Feature: <feature-name>
     2. task-2-<slug>    ✓ done
     3. task-3-<slug>    ○ pending
     4. task-4-<slug>    ○ pending (Depends on: task-3)
+
+  Verification:      ✓ PASS (2026-03-25)
+    └─ .sddw/<feature-name>/verify/report.md
+    (or: ○ not yet run)
+    (or: ✗ FAIL — 1 FR failed, 1 partial — 2 remediation tasks created)
+
+  Self-Improve:      ✓ done — 2 applied, 1 skipped (2026-03-26)
+    └─ .sddw/<feature-name>/self-improve/report.md
+    (or: ○ not yet run)
 ```
 
 For completed tasks, if a `.done.md` file exists, show a brief summary from it.

@@ -1,0 +1,24 @@
+prompt = """
+<feature_name> {{args}} </feature_name>
+
+# COMMON RULES
+!{cat ${extensionPath}/instructions/common.md}
+
+# INSTRUCTIONS
+!{cat ${extensionPath}/instructions/self-improve.md}
+
+# QUESTIONNAIRE
+!{cat ${extensionPath}/questionnaires/self-improve.md}
+
+# SPECS
+!{cat ${extensionPath}/specs/improvement-report.md}
+!{cat ${extensionPath}/specs/verification-report.md}
+!{cat ${extensionPath}/specs/task-completion.md}
+
+# NEXT STEP
+After the improvement report is generated:
+- If improvements were proposed: present each proposed change and ask the user which to apply.
+- After applying approved changes, suggest:
+  > Workflow updated. Next feature will benefit from these improvements.
+- If no improvements identified: congratulate and summarise the feature's clean execution.
+"""

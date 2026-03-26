@@ -1,6 +1,6 @@
 {
   "name": "sddw",
   "version": "0.1.0",
-  "description": "Spec-Driven Development Workflow for Gemini CLI. A 3-step pipeline: Requirement → Design → Implement. Specifications are the source of truth, code is a verified artifact.",
+  "description": "Spec-Driven Development Workflow for Gemini CLI. A 6-step pipeline: Requirements → Code Analysis → Design → Implement → Verify → Self-Improve. Specifications are the source of truth, code is a verified artifact.",
   "contextFileName": "GEMINI.md"
 }

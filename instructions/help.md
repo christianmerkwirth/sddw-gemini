@@ -19,7 +19,7 @@ Display:
 ```
 sddw — Spec-Driven Development Workflow
 
-  4-step pipeline: specs are the source of truth, code is a verified artifact.
+  6-step pipeline: specs are the source of truth, code is a verified artifact.
 
   Step 1: Requirements     /sddw:requirements <feature-name>
     Collaboratively produce a requirements spec: purpose, user stories,
@@ -36,6 +36,15 @@ sddw — Spec-Driven Development Workflow
   Step 4: Implement        /sddw:implement <feature-name> --task <N>
     Execute a single task following TDD protocol, commit protocol,
     and deviation handling. One task at a time.
+
+  Step 5: Verify           /sddw:verify <feature-name>
+    Run tests, cross-check acceptance criteria, review done criteria.
+    Creates remediation tasks if issues are found.
+
+  Step 6: Self-Improve     /sddw:self-improve <feature-name>
+    Analyse feature execution across all steps. Identify gaps,
+    errors, and patterns. Propose concrete improvements to
+    workflow instructions, questionnaires, and specs.
 
   Fast-track:
     /sddw:chat <feature-name>     Quick edits, questions, or updates on an
