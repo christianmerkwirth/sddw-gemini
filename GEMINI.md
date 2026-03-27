@@ -5,8 +5,8 @@ sddw is a structured development workflow where **specifications are the source 
 ## Pipeline
 
 ```
-/sddw:requirements  →  /sddw:code-analysis  →  /sddw:design  →  /sddw:implement
-       (Step 1)              (Step 2, optional)      (Step 3)          (Step 4)
+/sddw:requirements  →  /sddw:code-analysis  →  /sddw:design  →  /sddw:implement  →  /sddw:verify  →  /sddw:self-improve
+       (Step 1)              (Step 2, optional)      (Step 3)          (Step 4)           (Step 5)          (Step 6)
 ```
 
 | Step | Command | Output |
@@ -15,6 +15,8 @@ sddw is a structured development workflow where **specifications are the source 
 | Code Analysis | `/sddw:code-analysis <feature>` | `.sddw/code-analysis.md` |
 | Design | `/sddw:design <feature>` | `.sddw/<feature>/design/tasks/task-N-*.md` |
 | Implement | `/sddw:implement <feature> --task N` | Code + `.sddw/<feature>/implement/tasks/task-N-*.done.md` |
+| Verify | `/sddw:verify <feature>` | `.sddw/<feature>/verify/report.md` |
+| Self-Improve | `/sddw:self-improve <feature>` | `.sddw/<feature>/self-improve/report.md` |
 
 Additional commands:
 - `/sddw:chat <feature>` — Fast-track interaction with a feature (quick edits, questions, updates)
@@ -34,6 +36,10 @@ All artifacts live under `.sddw/` in the project root:
     implement/
       tasks/
         task-1-*.done.md  # Completion reports
+    verify/
+      report.md           # FR-by-FR pass/fail, test results
+    self-improve/
+      report.md           # Findings, proposals, applied changes
   code-analysis.md        # Optional shared codebase analysis
 ```
 

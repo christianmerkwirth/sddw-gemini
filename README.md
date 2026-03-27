@@ -2,7 +2,7 @@
 
 Spec-Driven Development Workflow for [Gemini CLI](https://github.com/google-gemini/gemini-cli).
 
-- Write **requirements**, optionally **analyse the codebase**, then **design** (as self-contained task files), then **implement** each task separately
+- Write **requirements**, optionally **analyse the codebase**, then **design** (as self-contained task files), then **implement** each task separately, then **verify** the result, then **self-improve** the workflow
 - The agent guides you through every step — researches, proposes options, confirms your decisions
 - Every step produces exactly one spec type. Every step reads specs from previous steps.
 - Three interaction modes: guided dialog (default), `--critical-only`, or fully `--auto`
@@ -32,6 +32,8 @@ gemini extensions link .
 | `/sddw:code-analysis <feature> [--auto \| --critical-only]` | Analyse existing codebase (optional) |
 | `/sddw:design <feature> [--auto \| --critical-only]` | Generate self-contained task files |
 | `/sddw:implement <feature> --task <N> [--auto \| --critical-only]` | Implement a single task |
+| `/sddw:verify <feature> [--auto \| --critical-only]` | Verify implementation against requirements |
+| `/sddw:self-improve <feature> [--auto \| --critical-only]` | Analyse execution and improve workflow |
 | `/sddw:chat <feature> [--auto \| --critical-only]` | Fast-track interaction with an existing feature |
 | `/sddw:help [list \| status <feature>]` | Workflow overview and feature status |
 
@@ -119,6 +121,48 @@ Execute a single task from the design spec:
 
 After each task, a completion report (`task-N-<slug>.done.md`) is written to `implement/tasks/`.
 
+### 5. Verify
+
+```
+/sddw:verify <feature-name> [--auto | --critical-only]
+```
+
+Verify the implementation against requirements after all tasks are complete:
+
+- **Assess** — load artifacts, detect test runner, check task completion status
+- **Verify** — run test suite, cross-check each FR's acceptance criteria, review done criteria
+- **Report & Remediate** — produce verification report, create remediation tasks if issues found
+
+Output:
+
+```
+.sddw/<feature-name>/
+└── verify/
+    └── report.md    # FR-by-FR pass/fail, test results, deviations, warnings
+```
+
+If issues are found, remediation tasks are created as additional task files in `design/tasks/`. These can be executed with `/sddw:implement` and then verified again.
+
+### 6. Self-Improve
+
+```
+/sddw:self-improve <feature-name> [--auto | --critical-only]
+```
+
+Analyse the completed feature's execution across all workflow steps. Identify what went wrong (or could be better) and propose concrete improvements to the workflow itself:
+
+- **Analyse** — extract signals: deviations, difficulties, remediation task origins, spec gaps
+- **Diagnose** — classify findings by workflow step, identify patterns, propose improvements
+- **Apply** — present proposals with diff previews, apply approved changes to workflow files
+
+Output:
+
+```
+.sddw/<feature-name>/
+└── self-improve/
+    └── report.md    # findings, proposals, applied/skipped changes
+```
+
 ### Chat
 
 ```
@@ -157,6 +201,10 @@ All artifacts live under `.sddw/` in the project root:
     implement/
       tasks/
         task-1-<slug>.done.md # Completion reports
+    verify/
+      report.md               # FR-by-FR pass/fail, test results
+    self-improve/
+      report.md               # Findings, proposals, applied changes
   code-analysis.md            # Optional shared codebase analysis
 ```
 
