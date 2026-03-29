@@ -63,7 +63,14 @@ sddw — Spec-Driven Development Workflow
 
 Scan `.sddw/` directory for feature directories. A feature directory is any subdirectory of `.sddw/` (exclude `code-analysis.md` and other files).
 
-For each feature, show a one-line summary with status indicator (see Status Logic in Common Rules).
+For each feature, show a one-line summary with status indicator (see Status Logic in Common Rules):
+
+```
+Features in .sddw/:
+  <feature-a>    [requirements → code-analysis → design → implement 2/4]
+  <feature-b>    [requirements → design → implement 4/4 → verify PASS → self-improve 2 applied]
+  <feature-c>    [requirements]
+```
 
 If `.sddw/` does not exist or has no feature directories, say:
 > "No features found. Start with `/sddw:requirements <feature-name>`"
