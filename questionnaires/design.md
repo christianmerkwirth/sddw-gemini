@@ -2,13 +2,11 @@
 
 Three-phase dialog to gather enough context to produce self-contained task files.
 
-**Critical decisions (`--critical-only`):** architecture approach, design decisions with trade-offs, task breakdown.
-
 ---
 
 ## Phase 1: Discover
 
-*In `--critical-only`: infer non-critical preferences autonomously, but ask about preferred architectural approach if multiple viable options exist. In `--auto`: perform discovery fully autonomously.*
+*In `--auto`: perform discovery fully autonomously.*
 
 Understand the implementation landscape. The requirements spec is already written — now understand how it maps to the codebase. One question at a time.
 
@@ -46,7 +44,7 @@ Research the design and propose ONE section at a time. Wait for approval before 
 
 Present each section separately. Wait for user approval before proposing the next.
 
-*In `--critical-only`: decide Data Models and Interface Contracts autonomously. Pause only for Architecture (Section 1), Design Decisions (Section 4), and Task Breakdown (Section 5) — present these for user approval. In `--auto`: decide all sections autonomously.*
+*In `--auto`: decide all sections autonomously.*
 
 **Section 1 — Architecture:**
 Present the architecture overview as context text, then use `ask_user` with `type: "choice"` and options:
@@ -87,6 +85,9 @@ Wait for response. Lock in decision. Move to next decision if any.
 > 2. Task 2: [description] (FR-02) — Depends on: task-1 — files: [list]
 > "Tasks 1 and [N] can run in parallel. Agree with this breakdown and dependency ordering?"
 >
+>
+> For each task that modifies a module's interface: also list existing test files (especially integration tests) that mock or depend on the current interface — mark them as `— update`.
+>
 > "Each task file will include the architecture, data models, contracts, and design decisions relevant to that task — fully self-contained."
 
 Use `ask_user` with `type: "yesno"` or `type: "text"`. Wait for response. Lock in approved tasks. Each task becomes a separate file in `design/tasks/`.
@@ -109,6 +110,6 @@ Once all sections are approved:
 
 Use `ask_user` with `type: "yesno"`. User confirms → generate task files to `.sddw/<feature-name>/design/tasks/`
 
-*In `--critical-only`: still present this summary and wait for confirmation. In `--auto`: generate directly.*
+*In `--auto`: generate directly.*
 
 If user wants changes → return to the relevant section in Phase 2.

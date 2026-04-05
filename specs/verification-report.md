@@ -126,7 +126,13 @@ Written after the verify step runs. Stored at `.sddw/<feature-name>/verify/repor
 >
 > ## Remediation Tasks
 > - task-4-fix-token-expiry.md — fix `is_valid()` boundary comparison (FR-02)
+>   - **Severity:** FAIL
+>   - **Origin:** implementation — off-by-one in comparison operator
+>   - **Evidence:** `test_reset_token_expiry` — AssertionError: token accepted after 24h
 > - task-5-fix-email-timing.md — optimise email sending to meet 60s SLA (FR-01)
+>   - **Severity:** FAIL
+>   - **Origin:** design — task file had no performance constraint for email delivery
+>   - **Evidence:** `test_reset_email_timing` — TimeoutError: email sent after 90s
 >
 > ## Warnings
 > - None

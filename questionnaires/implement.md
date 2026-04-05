@@ -2,13 +2,11 @@
 
 Three-phase dialog for executing a single task from the design spec.
 
-**Critical decisions (`--critical-only`):** dependency conflicts, architectural deviations (Rule 4 — always asks, even in `--auto`).
-
 ---
 
 ## Phase 1: Discover
 
-*In `--critical-only`: pick next unblocked task if no `--task` flag, but ask the user if dependencies are incomplete. In `--auto`: perform discovery fully autonomously.*
+*In `--auto`: perform discovery fully autonomously.*
 
 Understand which task to execute and any blockers. One question at a time.
 
@@ -57,7 +55,7 @@ Based on the task file, research implementation approach and propose a plan.
 
 Use `ask_user` with `type: "yesno"`. Wait for response. User confirms → execute following the instructions.
 
-*In `--critical-only`: decide implementation approach autonomously, proceed to execution. In `--auto`: same.*
+*In `--auto`: decide implementation approach autonomously, proceed to execution.*
 
 ---
 
@@ -71,6 +69,11 @@ After task completion:
 > - Deviations: [count by rule, or "none"]
 > - Done criteria: [all checked / issues]
 
+> If unblocked tasks remain:
 > "Next unblocked tasks: [list]."
 > "**Recommendation:** Clear your context before starting the next task. Each task is self-contained — a fresh context avoids accumulated noise from this implementation."
 > "Then run `/sddw:implement <feature> --task <next>`."
+>
+> If all tasks are complete:
+> "All tasks complete."
+> "**Recommendation:** Clear your context, then run `/sddw:verify <feature>` to check everything works."
