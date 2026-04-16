@@ -48,7 +48,3 @@ Follow the three-phase flow defined in the questionnaire:
     ├── task-2-<slug>.md
     └── ...
 ```
-
-## Beads as Task Manager
-
-If beads is available, then add each task to beads. Place a link to the file with the task description into the description of the beads task.

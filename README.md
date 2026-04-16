@@ -5,7 +5,7 @@ Spec-Driven Development Workflow for [Gemini CLI](https://github.com/google-gemi
 - Write **requirements**, optionally **analyse the codebase**, then **design** (as self-contained task files), then **implement** each task separately, then **verify** the result, then **self-improve** the workflow
 - The agent guides you through every step — researches, proposes options, confirms your decisions
 - Every step produces exactly one spec type. Every step reads specs from previous steps.
-- Three interaction modes: guided dialog (default), `--critical-only`, or fully `--auto`
+- Two interaction modes: guided dialog (default) or fully `--auto`
 - Lightweight and easily customizable — just markdown and TOML files, no runtime dependencies
 
 Also available for [Claude Code](https://github.com/sermakarevich/sddw).
@@ -36,33 +36,30 @@ gemini extensions link .
 
 | Command | Description |
 |---------|-------------|
-| `/sddw:requirements <feature> [--auto \| --critical-only]` | Generate requirements spec |
-| `/sddw:code-analysis <feature> [--auto \| --critical-only]` | Analyse existing codebase (optional) |
-| `/sddw:design <feature> [--auto \| --critical-only]` | Generate self-contained task files |
-| `/sddw:implement <feature> --task <N> [--auto \| --critical-only]` | Implement a single task |
-| `/sddw:verify <feature> [--auto \| --critical-only]` | Verify implementation against requirements |
-| `/sddw:self-improve <feature> [--auto \| --critical-only]` | Analyse execution and improve workflow |
-| `/sddw:chat <feature> [--auto \| --critical-only]` | Fast-track interaction with an existing feature |
+| `/sddw:requirements <feature> [--auto]` | Generate requirements spec |
+| `/sddw:code-analysis <feature> [--auto]` | Analyse existing codebase (optional) |
+| `/sddw:design <feature> [--auto]` | Generate self-contained task files |
+| `/sddw:implement <feature> --task <N> [--auto]` | Implement a single task |
+| `/sddw:verify <feature> [--auto]` | Verify implementation against requirements |
+| `/sddw:self-improve <feature> [--auto]` | Analyse execution and improve workflow |
+| `/sddw:chat <feature> [--auto]` | Fast-track interaction with an existing feature |
 | `/sddw:help [list \| status <feature>]` | Workflow overview and feature status |
 
 ## Interaction Modes
 
-Every step supports three interaction modes:
+Every step supports two interaction modes:
 
 | Mode | Flag | Behavior |
 |------|------|----------|
 | **Interactive** | *(default)* | Full guided dialog — one question at a time, every section confirmed |
-| **Critical-only** | `--critical-only` | Autonomous research and proposals, pauses only for critical decisions |
 | **Auto** | `--auto` | Fully autonomous — no questions, best-judgment decisions |
-
-Example: `/sddw:design my-feature --critical-only`
 
 ## Workflow
 
 ### 1. Requirements
 
 ```
-/sddw:requirements <feature-name> [--auto | --critical-only]
+/sddw:requirements <feature-name> [--auto]
 ```
 
 Collaboratively produce a requirements spec through guided dialog:
@@ -77,7 +74,7 @@ Sections: Purpose, User Stories, Functional Requirements, Acceptance Criteria, C
 ### 2. Code Analysis (optional)
 
 ```
-/sddw:code-analysis <feature-name> [--auto | --critical-only]
+/sddw:code-analysis <feature-name> [--auto]
 ```
 
 Analyse the existing codebase to ground design decisions in reality:
@@ -93,7 +90,7 @@ Skip this step for greenfield projects with no existing codebase.
 ### 3. Design
 
 ```
-/sddw:design <feature-name> [--auto | --critical-only]
+/sddw:design <feature-name> [--auto]
 ```
 
 Produce self-contained task files through guided dialog:
@@ -118,7 +115,7 @@ Each task file includes all relevant design details inline so the implementation
 ### 4. Implement
 
 ```
-/sddw:implement <feature-name> --task <N> [--auto | --critical-only]
+/sddw:implement <feature-name> --task <N> [--auto]
 ```
 
 Execute a single task from the design spec:
@@ -132,7 +129,7 @@ After each task, a completion report (`task-N-<slug>.done.md`) is written to `im
 ### 5. Verify
 
 ```
-/sddw:verify <feature-name> [--auto | --critical-only]
+/sddw:verify <feature-name> [--auto]
 ```
 
 Verify the implementation against requirements after all tasks are complete:
@@ -154,7 +151,7 @@ If issues are found, remediation tasks are created as additional task files in `
 ### 6. Self-Improve
 
 ```
-/sddw:self-improve <feature-name> [--auto | --critical-only]
+/sddw:self-improve <feature-name> [--auto]
 ```
 
 Analyse the completed feature's execution across all workflow steps. Identify what went wrong (or could be better) and propose concrete improvements to the workflow itself:
@@ -174,7 +171,7 @@ Output:
 ### Chat
 
 ```
-/sddw:chat <feature-name> [--auto | --critical-only]
+/sddw:chat <feature-name> [--auto]
 ```
 
 Fast-track interaction with a feature that already has artifacts. Skips the full questionnaire ceremony — load context and talk.
