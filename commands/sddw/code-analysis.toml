@@ -15,5 +15,5 @@ prompt = """
 
 # NEXT STEP
 After the user approves the code analysis, suggest:
-> `/sddw:design <feature-name>`
+> Run `/clear` to free up context, then `/sddw:design <feature-name>`
 """

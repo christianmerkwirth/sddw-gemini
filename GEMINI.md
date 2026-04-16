@@ -45,9 +45,8 @@ All artifacts live under `.sddw/` in the project root:
 
 ## Interaction
 
-All steps support three modes via flags:
+All steps support two modes via flags:
 - *(default)* — Interactive: guided dialog, one question at a time
-- `--critical-only` — Autonomous except for critical decisions
 - `--auto` — Fully autonomous, no questions asked
 
 For structured user interaction, use the `ask_user` tool with types:

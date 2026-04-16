@@ -15,5 +15,5 @@ prompt = """
 
 # NEXT STEP
 After the user approves the design, suggest:
-> `/sddw:implement <feature-name> --task 1`
+> Run `/clear` to free up context, then `/sddw:implement <feature-name> --task 1`
 """

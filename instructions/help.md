@@ -63,7 +63,7 @@ sddw — Spec-Driven Development Workflow
 
 Scan `.sddw/` directory for feature directories. A feature directory is any subdirectory of `.sddw/` (exclude `code-analysis.md` and other files).
 
-For each feature, show a one-line summary with status indicator (see Status Logic in Common Rules):
+For each feature, show a one-line summary with status indicator:
 
 ```
 Features in .sddw/:
@@ -72,6 +72,14 @@ Features in .sddw/:
   <feature-c>    [requirements]
 ```
 
+Status detection:
+- `requirements.md` exists → requirements done
+- `.sddw/code-analysis.md` exists → code analysis done
+- `design/tasks/task-N-*.md` → design done (count total tasks)
+- `implement/tasks/task-N-*.done.md` → count completed tasks
+- `verify/report.md` exists → verification done (read result from Summary)
+- `self-improve/report.md` exists → self-improve done (read applied/skipped counts from Summary)
+
 If `.sddw/` does not exist or has no feature directories, say:
 > "No features found. Start with `/sddw:requirements <feature-name>`"
 
@@ -79,7 +87,40 @@ If `.sddw/` does not exist or has no feature directories, say:
 
 ## Feature Status (`status <feature-name>`)
 
-Read the feature directory and show detailed progress following the Status Logic in Common Rules.
+Read the feature directory and show detailed progress:
+
+```
+Feature: <feature-name>
+
+  Requirements:    ✓ completed
+    └─ .sddw/<feature-name>/requirements.md
+
+  Code Analysis:   ✓ exists (last updated: <date>)
+    └─ .sddw/code-analysis.md
+    (or: ○ skipped — no code-analysis.md found)
+
+  Design:          ✓ completed
+    └─ .sddw/<feature-name>/design/tasks/
+
+  Tasks:           2 of 4 complete
+    1. task-1-<slug>    ✓ done
+    2. task-2-<slug>    ✓ done
+    3. task-3-<slug>    ○ pending
+    4. task-4-<slug>    ○ pending (Depends on: task-3)
+
+  Verification:      ✓ PASS (2026-03-25)
+    └─ .sddw/<feature-name>/verify/report.md
+    (or: ○ not yet run)
+    (or: ✗ FAIL — 1 FR failed, 1 partial — 2 remediation tasks created)
+
+  Self-Improve:      ✓ done — 2 applied, 1 skipped (2026-03-26)
+    └─ .sddw/<feature-name>/self-improve/report.md
+    (or: ○ not yet run)
+```
+
+For completed tasks, if a `.done.md` file exists, show a brief summary from it.
+
+For pending tasks with dependencies, show the `Depends on:` field.
 
 If the feature directory does not exist:
 > "Feature '<feature-name>' not found. Run `/sddw:help list` to see available features."

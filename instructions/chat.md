@@ -31,7 +31,7 @@ Load all available artifacts **silently** — do not list or summarize what was 
 Chat is not interactive by default. It assumes the user knows what they want and acts directly.
 
 The only things that pause and ask:
-- Architectural deviations (Deviation Rule 4 from Common Rules)
+- Architectural deviations (Deviation Rule 4 from implement instructions)
 - Spec changes that affect scope (adding or removing FRs, changing constraints)
 - Ambiguous requests where the wrong interpretation could cause damage
 
@@ -67,7 +67,7 @@ Trigger: user describes a code change, fix, or small addition.
 
 Action:
 1. Identify which FRs or tasks the change relates to
-2. Follow the TDD Protocol, Commit Protocol, and Deviation Handling from the Common Rules
+2. Follow the TDD Protocol, Commit Protocol, and Deviation Handling from the implement instructions
 3. Write a completion note — but only if a corresponding task file exists. Do not create `.done.md` files for ad-hoc changes that have no task file.
 4. Reference FR-IDs in commit messages when the change traces to requirements
 
@@ -75,7 +75,7 @@ Action:
 
 Trigger: user asks about progress, status, or what remains.
 
-Action: Show feature status using the same Status Logic as in the Common Rules.
+Action: Show feature status using the same logic as `/sddw:help status <feature-name>`.
 
 ## Guardrails
 
@@ -90,8 +90,8 @@ Heuristic: if the change would touch more than 3 files or require more than 1 co
 - SHALL resolve paths using common.md Path Resolution rules (resolve `.sddw/` from current working directory)
 - SHALL load artifacts silently — no preamble about what was found
 - SHALL reference FR-IDs when making changes that trace to requirements
-- SHALL follow Commit Protocol from Common Rules for any code changes
-- SHALL follow Deviation Handling from Common Rules for any code changes
+- SHALL follow commit protocol from implement instructions for any code changes
+- SHALL follow deviation handling from implement instructions for any code changes
 - SHALL use `ask_user` for disambiguation and scope-affecting confirmations
 - SHALL NOT start a full questionnaire flow
 - SHALL NOT produce new artifact types — chat edits existing artifacts or writes code

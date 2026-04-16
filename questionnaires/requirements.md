@@ -124,7 +124,7 @@ Wait for response. Lock in testing approach — this carries through to the impl
 
 ## Phase 3: Confirm & Generate
 
-Once all sections are approved (or decided in `--auto` mode):
+Once all sections are approved:
 
 > "Ready to generate the requirements spec? Here's what I'll write:"
 > - Purpose: [summary]
