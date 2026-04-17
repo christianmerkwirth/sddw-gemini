@@ -78,12 +78,8 @@ and linting rules. Strive to produce code that is readable and properly commente
  
 One task = one commit. Commit after tests pass, never before.
  
-Understand which version control system is used. In case, replace all calls to git below with the equivalent
+Understand which version control system is used. In case, replace all calls to `git` below with the equivalent
 statement for the actually used version control system. 
-
-## Commit Protocol
-
-One task = one commit. Commit after tests pass, never before.
 
 **Stage individually:**
 ```
