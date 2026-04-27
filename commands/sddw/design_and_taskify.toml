@@ -1,0 +1,20 @@
+prompt = """
+<feature_name> {{args}} </feature_name>
+
+# COMMON RULES
+!{cat ${extensionPath}/instructions/common.md}
+
+# INSTRUCTIONS
+!{cat ${extensionPath}/instructions/design_and_taskify.md}
+
+# QUESTIONNAIRE
+!{cat ${extensionPath}/questionnaires/design_and_taskify.md}
+
+# SPECS
+!{cat ${extensionPath}/specs/design.md}
+!{cat ${extensionPath}/specs/design-task.md}
+
+# NEXT STEP
+After generating the design and task files, suggest:
+> Run `/clear` to free up context, then `/sddw:implement <feature-name> --task 1`
+"""
