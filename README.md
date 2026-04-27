@@ -2,7 +2,7 @@
 
 Spec-Driven Development Workflow for [Gemini CLI](https://github.com/google-gemini/gemini-cli).
 
-- Write **requirements**, optionally **analyse the codebase**, then **design** (as self-contained task files), then **implement** each task separately, then **verify** the result, then **self-improve** the workflow
+- Write **requirements**, optionally **analyse the codebase**, then **design** architecture, then **taskify** (as hybrid task files referencing `design.md`), then **implement** each task separately, then **verify** the result, then **self-improve** the workflow
 - The agent guides you through every step — researches, proposes options, confirms your decisions
 - Every step produces exactly one spec type. Every step reads specs from previous steps.
 - Two interaction modes: guided dialog (default) or fully `--auto`
@@ -38,7 +38,9 @@ gemini extensions link .
 |---------|-------------|
 | `/sddw:requirements <feature> [--auto]` | Generate requirements spec |
 | `/sddw:code-analysis <feature> [--auto]` | Analyse existing codebase (optional) |
-| `/sddw:design <feature> [--auto]` | Generate self-contained task files |
+| `/sddw:design <feature> [--auto]` | Generate cross-cutting `design.md` |
+| `/sddw:taskify <feature> [--auto]` | Generate hybrid task files from `design.md` |
+| `/sddw:design_and_taskify <feature> [--auto]` | Combined alias: design + taskify in one shot |
 | `/sddw:implement <feature> --task <N> [--auto]` | Implement a single task |
 | `/sddw:verify <feature> [--auto]` | Verify implementation against requirements |
 | `/sddw:self-improve <feature> [--auto]` | Analyse execution and improve workflow |
@@ -93,26 +95,49 @@ Skip this step for greenfield projects with no existing codebase.
 /sddw:design <feature-name> [--auto]
 ```
 
-Produce self-contained task files through guided dialog:
+Produce a cross-cutting `design.md` through guided dialog:
 
 - **Discover** — understand architectural preferences and constraints
-- **Research & Propose** — propose architecture, data models, contracts, decisions, and task breakdown
-- **Confirm & Generate** — user approves each block, task files are written
+- **Research & Propose** — propose architecture, data models, contracts, and decisions
+- **Confirm & Generate** — user approves each block, `design.md` is written
+
+Output: `.sddw/<feature-name>/design/design.md`
+
+### 4. Taskify
+
+```
+/sddw:taskify <feature-name> [--auto]
+```
+
+Break the feature into hybrid task files based on requirements and design:
+
+- **Discover** — understand task granularity preferences
+- **Research & Propose** — propose task breakdown in dependency order
+- **Confirm & Generate** — user approves task list, task files are written
 
 Output:
 
 ```
 .sddw/<feature-name>/
 └── design/
+    ├── design.md
     └── tasks/
-        ├── task-1-<slug>.md  # self-contained: architecture, models, contracts, decisions, criteria
+        ├── task-1-<slug>.md  # hybrid: files, criteria, references design.md
         ├── task-2-<slug>.md
         └── ...
 ```
 
-Each task file includes all relevant design details inline so the implementation agent needs only that single file.
+Each task file includes task-specific details inline and references `design.md` for architecture, models, and shared contracts, so the implementation agent has full context without duplication.
 
-### 4. Implement
+### Design & Taskify (Combined Alias)
+
+```
+/sddw:design_and_taskify <feature-name> [--auto]
+```
+
+Runs the design and taskify steps in one shot. Use this for small features where iterating on architecture independently is not needed.
+
+### 5. Implement
 
 ```
 /sddw:implement <feature-name> --task <N> [--auto]
@@ -126,7 +151,7 @@ Execute a single task from the design spec:
 
 After each task, a completion report (`task-N-<slug>.done.md`) is written to `implement/tasks/`.
 
-### 5. Verify
+### 6. Verify
 
 ```
 /sddw:verify <feature-name> [--auto]
@@ -148,7 +173,7 @@ Output:
 
 If issues are found, remediation tasks are created as additional task files in `design/tasks/`. These can be executed with `/sddw:implement` and then verified again.
 
-### 6. Self-Improve
+### 7. Self-Improve
 
 ```
 /sddw:self-improve <feature-name> [--auto]
@@ -200,6 +225,7 @@ All artifacts live under `.sddw/` in the project root:
   <feature>/
     requirements.md           # Step 1 output
     design/
+      design.md               # Cross-cutting design artefact
       tasks/
         task-1-<slug>.md      # One file per implementation task
         task-2-<slug>.md
