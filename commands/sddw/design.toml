@@ -11,9 +11,9 @@ prompt = """
 !{cat ${extensionPath}/questionnaires/design.md}
 
 # SPECS
-!{cat ${extensionPath}/specs/design-task.md}
+!{cat ${extensionPath}/specs/design.md}
 
 # NEXT STEP
 After the user approves the design, suggest:
-> Run `/clear` to free up context, then `/sddw:implement <feature-name> --task 1`
+> Run `/clear` to free up context, then `/sddw:taskify <feature-name>`
 """
