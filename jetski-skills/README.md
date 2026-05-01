@@ -50,12 +50,12 @@ Makes sddw skills available in **all projects**. Skills are installed into `~/.g
 mkdir -p ~/.gemini/antigravity/skills
 
 # Symlink each skill + the shared resources directory
-for d in sddw-skills/sddw-*/; do
+for d in jetski-skills/sddw-*/; do
   ln -sf "$(pwd)/$d" ~/.gemini/antigravity/skills/$(basename "$d")
 done
 
 # Also symlink the shared resources (specs and common rules)
-ln -sf "$(pwd)/sddw-skills/sddw-common" ~/.gemini/antigravity/skills/sddw-common
+ln -sf "$(pwd)/jetski-skills/sddw-common" ~/.gemini/antigravity/skills/sddw-common
 ```
 
 ### Option B: Per-project install
@@ -69,11 +69,11 @@ SDDW_DIR=/path/to/sddw-gemini  # adjust to where you cloned the repo
 
 mkdir -p "$PROJECT_DIR/.agent/skills"
 
-for d in "$SDDW_DIR"/sddw-skills/sddw-*/; do
+for d in "$SDDW_DIR"/jetski-skills/sddw-*/; do
   ln -sf "$d" "$PROJECT_DIR/.agent/skills/$(basename "$d")"
 done
 
-ln -sf "$SDDW_DIR/sddw-skills/sddw-common" "$PROJECT_DIR/.agent/skills/sddw-common"
+ln -sf "$SDDW_DIR/jetski-skills/sddw-common" "$PROJECT_DIR/.agent/skills/sddw-common"
 ```
 
 > **Note:** The `sddw-common/` symlink is required — skills reference shared spec templates and common rules via `../sddw-common/` relative paths.
