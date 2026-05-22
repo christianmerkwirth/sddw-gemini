@@ -66,6 +66,25 @@ ln -sf "$(pwd)/jetski-skills/sddw-common" ~/.gemini/antigravity/skills/sddw-comm
 </details>
 
 <details>
+<summary>Antigravity CLI</summary>
+
+Skills are installed into `~/.gemini/antigravity-cli/skills/`.
+
+```bash
+mkdir -p ~/.gemini/antigravity-cli/skills
+
+# Symlink each skill + the shared resources directory
+for d in jetski-skills/sddw-*/; do
+  ln -sf "$(pwd)/$d" ~/.gemini/antigravity-cli/skills/$(basename "$d")
+done
+
+# Also symlink the shared resources (specs and common rules)
+ln -sf "$(pwd)/jetski-skills/sddw-common" ~/.gemini/antigravity-cli/skills/sddw-common
+```
+
+</details>
+
+<details>
 <summary>Jetski (Google-internal)</summary>
 
 Skills are installed into `~/.gemini/jetski/skills/`.
@@ -124,6 +143,16 @@ The agent should display the workflow overview with all 7 steps.
 ```bash
 rm -f ~/.gemini/antigravity/skills/sddw-*
 rm -f ~/.gemini/antigravity/skills/sddw-common
+```
+
+</details>
+
+<details>
+<summary>Antigravity CLI</summary>
+
+```bash
+rm -f ~/.gemini/antigravity-cli/skills/sddw-*
+rm -f ~/.gemini/antigravity-cli/skills/sddw-common
 ```
 
 </details>
