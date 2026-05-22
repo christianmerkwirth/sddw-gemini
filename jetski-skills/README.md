@@ -44,64 +44,37 @@ cd sddw-gemini
 
 ### Option A: Global install (recommended)
 
-Makes sddw skills available in **all projects**. Expand the section that matches your setup:
-
-<details>
-<summary>Antigravity</summary>
-
-Skills are installed into `~/.gemini/antigravity/skills/`.
+Makes sddw skills available in **all projects**. Run this script and select your environment:
 
 ```bash
-mkdir -p ~/.gemini/antigravity/skills
+echo "Select your environment:"
+echo "1) Antigravity (~/.gemini/antigravity)"
+echo "2) Antigravity CLI (~/.gemini/antigravity-cli)"
+echo "3) Jetski (~/.gemini/jetski)"
+echo "4) Jetski CLI (~/.gemini/jetski-cli)"
+read -p "Choose (1-4): " choice
+
+case $choice in
+  1) D="antigravity";;
+  2) D="antigravity-cli";;
+  3) D="jetski";;
+  4) D="jetski-cli";;
+  *) echo "Invalid choice"; exit 1;;
+esac
+
+DEST="$HOME/.gemini/$D/skills"
+mkdir -p "$DEST"
 
 # Symlink each skill + the shared resources directory
 for d in jetski-skills/sddw-*/; do
-  ln -sf "$(pwd)/$d" ~/.gemini/antigravity/skills/$(basename "$d")
+  ln -sf "$(pwd)/$d" "$DEST/$(basename "$d")"
 done
 
 # Also symlink the shared resources (specs and common rules)
-ln -sf "$(pwd)/jetski-skills/sddw-common" ~/.gemini/antigravity/skills/sddw-common
+ln -sf "$(pwd)/jetski-skills/sddw-common" "$DEST/sddw-common"
+
+echo "Successfully installed to $DEST"
 ```
-
-</details>
-
-<details>
-<summary>Antigravity CLI</summary>
-
-Skills are installed into `~/.gemini/antigravity-cli/skills/`.
-
-```bash
-mkdir -p ~/.gemini/antigravity-cli/skills
-
-# Symlink each skill + the shared resources directory
-for d in jetski-skills/sddw-*/; do
-  ln -sf "$(pwd)/$d" ~/.gemini/antigravity-cli/skills/$(basename "$d")
-done
-
-# Also symlink the shared resources (specs and common rules)
-ln -sf "$(pwd)/jetski-skills/sddw-common" ~/.gemini/antigravity-cli/skills/sddw-common
-```
-
-</details>
-
-<details>
-<summary>Jetski (Google-internal)</summary>
-
-Skills are installed into `~/.gemini/jetski/skills/`.
-
-```bash
-mkdir -p ~/.gemini/jetski/skills
-
-# Symlink each skill + the shared resources directory
-for d in jetski-skills/sddw-*/; do
-  ln -sf "$(pwd)/$d" ~/.gemini/jetski/skills/$(basename "$d")
-done
-
-# Also symlink the shared resources (specs and common rules)
-ln -sf "$(pwd)/jetski-skills/sddw-common" ~/.gemini/jetski/skills/sddw-common
-```
-
-</details>
 
 ### Option B: Per-project install
 
@@ -137,35 +110,25 @@ The agent should display the workflow overview with all 7 steps.
 
 ### Global
 
-<details>
-<summary>Antigravity</summary>
-
 ```bash
-rm -f ~/.gemini/antigravity/skills/sddw-*
-rm -f ~/.gemini/antigravity/skills/sddw-common
+echo "Select your environment:"
+echo "1) Antigravity (~/.gemini/antigravity)"
+echo "2) Antigravity CLI (~/.gemini/antigravity-cli)"
+echo "3) Jetski (~/.gemini/jetski)"
+echo "4) Jetski CLI (~/.gemini/jetski-cli)"
+read -p "Choose (1-4): " choice
+
+case $choice in
+  1) D="antigravity";;
+  2) D="antigravity-cli";;
+  3) D="jetski";;
+  4) D="jetski-cli";;
+  *) echo "Invalid choice"; exit 1;;
+esac
+
+rm -f "$HOME/.gemini/$D/skills"/sddw-*
+echo "Successfully uninstalled from $HOME/.gemini/$D/skills"
 ```
-
-</details>
-
-<details>
-<summary>Antigravity CLI</summary>
-
-```bash
-rm -f ~/.gemini/antigravity-cli/skills/sddw-*
-rm -f ~/.gemini/antigravity-cli/skills/sddw-common
-```
-
-</details>
-
-<details>
-<summary>Jetski (Google-internal)</summary>
-
-```bash
-rm -f ~/.gemini/jetski/skills/sddw-*
-rm -f ~/.gemini/jetski/skills/sddw-common
-```
-
-</details>
 
 ### Per-project
 
