@@ -1,0 +1,26 @@
+prompt = """
+<feature_name> {{args}} </feature_name>
+
+# COMMON RULES
+!{cat ${extensionPath}/instructions/common.md}
+
+# INSTRUCTIONS
+!{cat ${extensionPath}/instructions/task-review.md}
+
+# QUESTIONNAIRE
+!{cat ${extensionPath}/questionnaires/task-review.md}
+
+# SPECS
+!{cat ${extensionPath}/specs/design-task.md}
+!{cat ${extensionPath}/specs/task-completion.md}
+!{cat ${extensionPath}/specs/task-review-report.md}
+
+# NEXT STEP
+After the review:
+- If APPROVED and unblocked tasks remain:
+  > Task <N> approved. Run `/clear` to free up context, then `/sddw:implement <feature> --task <next-N>`.
+- If APPROVED and all tasks are implemented and reviewed:
+  > All tasks approved. Run `/clear` to free up context, then `/sddw:verify <feature>` to check everything works against requirements.
+- If CHANGES REQUESTED:
+  > Re-run `/sddw:implement <feature> --task <N>` to address the blocking findings, then re-run `/sddw:task-review <feature> --task <N>`.
+"""

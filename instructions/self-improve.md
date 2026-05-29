@@ -16,6 +16,7 @@ Read the feature artifacts from `<resolved-sddw-path>/<feature-name>/`:
 | Design | `<feature-name>/design/design.md` | Yes |
 | Task files | `<feature-name>/design/tasks/task-*.md` | Yes |
 | Completion reports | `<feature-name>/implement/tasks/*.done.md` | Yes |
+| Task review reports | `<feature-name>/task-review/*.review.md` | No |
 | Verification report | `<feature-name>/verify/report.md` | Yes |
 | Code analysis | `code-analysis.md` | No |
 
@@ -73,6 +74,7 @@ Signals to check:
 - Deviations (Rules 1-3) frequency and patterns in completion reports
 - Difficulties section patterns across tasks
 - TDD effectiveness (did tests catch the right things?)
+- Task-review verdicts of CHANGES REQUESTED and recurring finding types (`.review.md`) — indicates issues that slipped through implement
 
 Questions to answer:
 - Were implementation instructions clear enough?

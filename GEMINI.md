@@ -5,9 +5,11 @@ sddw is a structured development workflow where **specifications are the source 
 ## Pipeline
 
 ```
-/sddw:requirements  →  /sddw:code-analysis  →  /sddw:design  →  /sddw:taskify  →  /sddw:implement  →  /sddw:verify  →  /sddw:self-improve
-       (Step 1)              (Step 2, optional)      (Step 3)          (Step 4)        (Step 5)           (Step 6)          (Step 7)
+/sddw:requirements  →  /sddw:code-analysis  →  /sddw:design  →  /sddw:taskify  →  /sddw:implement  →  /sddw:task-review  →  /sddw:verify  →  /sddw:self-improve
+       (Step 1)              (Step 2, optional)      (Step 3)          (Step 4)        (Step 5)            (Step 6)            (Step 7)          (Step 8)
 ```
+
+Steps 5 and 6 form a per-task loop: implement a task, then review it. Repeat for every task before moving on to feature-level verification.
 
 | Step | Command | Output |
 |------|---------|--------|
@@ -16,6 +18,7 @@ sddw is a structured development workflow where **specifications are the source 
 | Design | `/sddw:design <feature>` | `.sddw/<feature>/design/design.md` |
 | Taskify | `/sddw:taskify <feature>` | `.sddw/<feature>/design/tasks/task-N-*.md` |
 | Implement | `/sddw:implement <feature> --task N` | Code + `.sddw/<feature>/implement/tasks/task-N-*.done.md` |
+| Task Review | `/sddw:task-review <feature> --task N` | `.sddw/<feature>/task-review/task-N-*.review.md` |
 | Verify | `/sddw:verify <feature>` | `.sddw/<feature>/verify/report.md` |
 | Self-Improve | `/sddw:self-improve <feature>` | `.sddw/<feature>/self-improve/report.md` |
 
@@ -39,6 +42,8 @@ All artifacts live under `.sddw/` in the project root:
     implement/
       tasks/
         task-1-*.done.md  # Completion reports
+    task-review/
+      task-1-*.review.md  # Per-task review reports (verdict + findings)
     verify/
       report.md           # FR-by-FR pass/fail, test results
     self-improve/

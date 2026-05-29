@@ -11,7 +11,7 @@ description: >
 
 # sddw Verify Step
 
-Verify the implementation against requirements, run tests, and create remediation tasks if issues are found. This is Step 6 of the sddw workflow.
+Verify the implementation against requirements, run tests, and create remediation tasks if issues are found. This is Step 7 of the sddw workflow.
 
 ## Setup
 
