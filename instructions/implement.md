@@ -1,6 +1,6 @@
 # Implement Step Instructions
 
-Implement a single task from the design spec. This is Step 3 of the sddw workflow. The user specifies which task to execute.
+Implement a single task from the design spec. This is Step 5 of the sddw workflow. The user specifies which task to execute.
 
 ## Input
 

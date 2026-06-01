@@ -2,7 +2,7 @@
 
 Spec-Driven Development Workflow for [Gemini CLI](https://github.com/google-gemini/gemini-cli).
 
-- Write **requirements**, optionally **analyse the codebase**, then **design** architecture, then **taskify** (as hybrid task files referencing `design.md`), then **implement** each task separately, then **verify** the result, then **self-improve** the workflow
+- Write **requirements**, optionally **analyse the codebase**, then **design** architecture, then **taskify** (as hybrid task files referencing `design.md`), then **implement** each task separately, **task-review** each implemented task, then **verify** the result, then **self-improve** the workflow
 - The agent guides you through every step — researches, proposes options, confirms your decisions
 - Every step produces exactly one spec type. Every step reads specs from previous steps.
 - Two interaction modes: guided dialog (default) or fully `--auto`
@@ -42,6 +42,7 @@ gemini extensions link .
 | `/sddw:taskify <feature> [--auto]` | Generate hybrid task files from `design.md` |
 | `/sddw:design_and_taskify <feature> [--auto]` | Combined alias: design + taskify in one shot |
 | `/sddw:implement <feature> --task <N> [--auto]` | Implement a single task |
+| `/sddw:task-review <feature> --task <N> [--auto]` | Review a single implemented task |
 | `/sddw:verify <feature> [--auto]` | Verify implementation against requirements |
 | `/sddw:self-improve <feature> [--auto]` | Analyse execution and improve workflow |
 | `/sddw:chat <feature> [--auto]` | Fast-track interaction with an existing feature |
@@ -151,7 +152,23 @@ Execute a single task from the design spec:
 
 After each task, a completion report (`task-N-<slug>.done.md`) is written to `implement/tasks/`.
 
-### 6. Verify
+### 6. Task Review
+
+```
+/sddw:task-review <feature-name> --task <N> [--auto]
+```
+
+A focused, task-level quality gate that runs after each `implement` and before feature-level `verify`. It reviews one task's diff — not a rewrite — and routes back to `implement` when changes are needed:
+
+- **Assess** — load the task file, completion report, and design; identify the diff from the task's commits
+- **Review** — run the task's tests and review the changes across six dimensions: criteria conformance, design conformance, convention conformance, code quality, test quality, and deviation integrity
+- **Report & Decide** — classify findings (Blocker / Major / Minor) and issue a verdict: **APPROVED** or **CHANGES REQUESTED**
+
+Output: `.sddw/<feature-name>/task-review/task-<N>-<slug>.review.md`
+
+Steps 5 and 6 form a per-task loop: implement a task, review it, then move to the next task. When all tasks are implemented and approved, proceed to verify.
+
+### 7. Verify
 
 ```
 /sddw:verify <feature-name> [--auto]
@@ -173,7 +190,7 @@ Output:
 
 If issues are found, remediation tasks are created as additional task files in `design/tasks/`. These can be executed with `/sddw:implement` and then verified again.
 
-### 7. Self-Improve
+### 8. Self-Improve
 
 ```
 /sddw:self-improve <feature-name> [--auto]
@@ -232,6 +249,8 @@ All artifacts live under `.sddw/` in the project root:
     implement/
       tasks/
         task-1-<slug>.done.md # Completion reports
+    task-review/
+      task-1-<slug>.review.md # Per-task review reports (verdict + findings)
     verify/
       report.md               # FR-by-FR pass/fail, test results
     self-improve/

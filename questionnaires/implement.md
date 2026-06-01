@@ -69,11 +69,7 @@ After task completion:
 > - Deviations: [count by rule, or "none"]
 > - Done criteria: [all checked / issues]
 
-> If unblocked tasks remain:
-> "Next unblocked tasks: [list]."
-> "**Recommendation:** Clear your context before starting the next task (`/clear` or start a new conversation). Each task execution is isolated — a fresh context avoids accumulated noise from this implementation."
-> "Then run `/sddw:implement <feature> --task <next>`."
+> "**Recommendation:** Clear your context (`/clear` or start a new conversation), then review this task before moving on. Each step is isolated — a fresh context avoids accumulated noise from this implementation."
+> "Run `/sddw:task-review <feature> --task <N>` to review what you just built."
 >
-> If all tasks are complete:
-> "All tasks complete."
-> "**Recommendation:** Clear your context, then run `/sddw:verify <feature>` to check everything works."
+> The task-review step reports the next unblocked task on approval, or directs you to `/sddw:verify <feature>` once all tasks are implemented and approved.

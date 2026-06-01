@@ -2,16 +2,18 @@
 
 Spec-Driven Development Workflow for [Antigravity](https://antigravity.codes).
 
-A structured 7-step pipeline where **specifications are the source of truth** and code is a verified artifact. The agent guides you through every step — researches, proposes options, confirms your decisions. Every step produces exactly one spec type. Every step reads specs from previous steps.
+A structured 8-step pipeline where **specifications are the source of truth** and code is a verified artifact. The agent guides you through every step — researches, proposes options, confirms your decisions. Every step produces exactly one spec type. Every step reads specs from previous steps.
 
 Also available for [Gemini CLI](https://github.com/christianmerkwirth/sddw-gemini) and [Claude Code](https://github.com/sermakarevich/sddw).
 
 ## Pipeline
 
 ```
-sddw requirements  →  sddw code-analysis  →  sddw design  →  sddw taskify  →  sddw implement  →  sddw verify  →  sddw self-improve
-     (Step 1)            (Step 2, optional)     (Step 3)         (Step 4)         (Step 5)          (Step 6)         (Step 7)
+sddw requirements  →  sddw code-analysis  →  sddw design  →  sddw taskify  →  sddw implement  →  sddw task-review  →  sddw verify  →  sddw self-improve
+     (Step 1)            (Step 2, optional)     (Step 3)         (Step 4)         (Step 5)            (Step 6)           (Step 7)         (Step 8)
 ```
+
+Steps 5 and 6 form a per-task loop: implement a task, then review it. Repeat for every task before moving on to feature-level verification.
 
 | Step | Trigger Phrase | Output |
 |------|---------------|--------|
@@ -20,6 +22,7 @@ sddw requirements  →  sddw code-analysis  →  sddw design  →  sddw taskify 
 | Design | `sddw design <feature>` | `.sddw/<feature>/design/design.md` |
 | Taskify | `sddw taskify <feature>` | `.sddw/<feature>/design/tasks/task-N-*.md` |
 | Implement | `sddw implement <feature> --task N` | Code + `.sddw/<feature>/implement/tasks/task-N-*.done.md` |
+| Task Review | `sddw task-review <feature> --task N` | `.sddw/<feature>/task-review/task-N-*.review.md` |
 | Verify | `sddw verify <feature>` | `.sddw/<feature>/verify/report.md` |
 | Self-Improve | `sddw self-improve <feature>` | `.sddw/<feature>/self-improve/report.md` |
 
@@ -104,7 +107,7 @@ After installing, restart Antigravity (or your IDE) to pick up the new skills. Y
 sddw help
 ```
 
-The agent should display the workflow overview with all 7 steps.
+The agent should display the workflow overview with all 8 steps.
 
 ## Uninstall
 
@@ -147,6 +150,7 @@ rm -f .agent/skills/sddw-common
 | `sddw-taskify` | Break design into hybrid task files |
 | `sddw-design-and-taskify` | Combined design + taskify in one flow |
 | `sddw-implement` | Implement a single task with TDD, commit, and deviation protocols |
+| `sddw-task-review` | Review a single implemented task against its criteria, design, and conventions |
 | `sddw-verify` | Verify implementation against requirements, create remediation tasks |
 | `sddw-self-improve` | Analyse execution and propose workflow improvements |
 | `sddw-chat` | Fast-track interaction — quick edits, questions, status |
@@ -175,6 +179,7 @@ sddw-skills/
 │       ├── design.md
 │       ├── design-task.md
 │       ├── task-completion.md
+│       ├── task-review-report.md
 │       ├── verification-report.md
 │       └── improvement-report.md
 │
@@ -200,6 +205,10 @@ sddw-skills/
 │
 ├── sddw-implement/
 │   ├── SKILL.md                         # Includes TDD, commit, deviation protocols
+│   └── references/questionnaire.md
+│
+├── sddw-task-review/
+│   ├── SKILL.md                         # Per-task quality gate; verdict + findings
 │   └── references/questionnaire.md
 │
 ├── sddw-verify/
@@ -233,6 +242,8 @@ All workflow artifacts live under `.sddw/` in your project root:
     implement/
       tasks/
         task-1-<slug>.done.md # Completion reports
+    task-review/
+      task-1-<slug>.review.md # Per-task review reports (verdict + findings)
     verify/
       report.md               # FR-by-FR pass/fail, test results
     self-improve/

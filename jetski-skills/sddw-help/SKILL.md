@@ -33,7 +33,7 @@ Display:
 ```
 sddw — Spec-Driven Development Workflow
 
-  7-step pipeline: specs are the source of truth, code is a verified artifact.
+  8-step pipeline: specs are the source of truth, code is a verified artifact.
 
   Step 1: Requirements     sddw requirements <feature-name>
     Collaboratively produce a requirements spec: purpose, user stories,
@@ -54,11 +54,16 @@ sddw — Spec-Driven Development Workflow
     Execute a single task following TDD protocol, commit protocol,
     and deviation handling. One task at a time.
 
-  Step 6: Verify           sddw verify <feature-name>
+  Step 6: Task Review      sddw task-review <feature-name> --task <N>
+    Quality-gate a single task after implement: review its diff
+    against done/acceptance criteria, design contracts, and
+    conventions. Verdict APPROVED or CHANGES REQUESTED.
+
+  Step 7: Verify           sddw verify <feature-name>
     Run tests, cross-check acceptance criteria, review done criteria.
     Creates remediation tasks if issues are found.
 
-  Step 7: Self-Improve     sddw self-improve <feature-name>
+  Step 8: Self-Improve     sddw self-improve <feature-name>
     Analyse feature execution across all steps. Identify gaps,
     errors, and patterns. Propose concrete improvements to
     workflow instructions, questionnaires, and specs.
@@ -86,7 +91,7 @@ For each feature, show a one-line summary with status indicator:
 ```
 Features in .sddw/:
   <feature-a>    [requirements → code-analysis → design → tasks (4) → implement 2/4]
-  <feature-b>    [requirements → design → tasks (4) → implement 4/4 → verify PASS → self-improve 2 applied]
+  <feature-b>    [requirements → design → tasks (4) → implement 4/4 → review 4/4 → verify PASS → self-improve 2 applied]
   <feature-c>    [requirements]
 ```
 
@@ -96,6 +101,7 @@ Status detection:
 - `design/design.md` exists → design done
 - `design/tasks/task-N-*.md` → tasks generated (count total tasks)
 - `implement/tasks/task-N-*.done.md` → count completed tasks
+- `task-review/task-N-*.review.md` → count reviewed tasks (read verdict from each)
 - `verify/report.md` exists → verification done (read result from Summary)
 - `self-improve/report.md` exists → self-improve done (read applied/skipped counts from Summary)
 
@@ -127,6 +133,12 @@ Feature: <feature-name>
     2. task-2-<slug>    ✓ done
     3. task-3-<slug>    ○ pending
     4. task-4-<slug>    ○ pending (Depends on: task-3)
+
+  Task Review:     2 of 2 implemented tasks reviewed
+    1. task-1-<slug>    ✓ APPROVED
+    2. task-2-<slug>    ✓ APPROVED
+    (or: ✗ task-2-<slug> CHANGES REQUESTED — 1 blocker)
+    (or: ○ not yet run)
 
   Verification:      ✓ PASS (2026-03-25)
     └─ .sddw/<feature-name>/verify/report.md
