@@ -9,7 +9,7 @@ description: >
 
 # sddw Design and Taskify Step
 
-Generate the cross-cutting `design.md` plus hybrid task files for a feature in a single combined dialog. End artefacts are structurally equivalent to running `sddw design` then `sddw taskify`.
+Generate the cross-cutting `design.md` plus hybrid task files for a feature in a single combined dialog. This is Step 3 of the sddw workflow when the user wants the simple one-shot path. End artefacts are structurally equivalent to running `sddw design` then `sddw taskify`.
 
 ## Setup
 
@@ -43,6 +43,7 @@ Follow the monolithic 3-phase flow defined in `./references/questionnaire.md`.
 - SHALL read and reference the requirements spec — every design element traces to an FR
 - SHALL use the Project path from the requirements spec as the target codebase for analysis
 - SHALL write `design.md` before any task files, ensuring `design.md` is preserved if task generation aborts mid-flow.
+- `design.md` SHALL follow the spec template at `../sddw-common/specs/design.md` — same output format as the standalone `sddw design` step.
 - SHALL use `.sddw/code-analysis.md` if it exists, but SHALL NOT require it
 - SHALL analyse the actual codebase if code-analysis is absent
 - Every task SHALL trace to one or more FR-IDs

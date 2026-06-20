@@ -91,7 +91,7 @@ Present options:
 *In `--auto`: generate directly without confirmation.*
 
 Once confirmed, you SHALL write the files in this strict order:
-1. Write `design.md` FIRST to `.sddw/<feature-name>/design/design.md`.
-2. Then write the task files to `.sddw/<feature-name>/design/tasks/task-<N>-<slug>.md`.
+1. Write `design.md` FIRST to `.sddw/<feature-name>/design/design.md`, following the spec template at `../sddw-common/specs/design.md`.
+2. Then write the task files to `.sddw/<feature-name>/design/tasks/task-<N>-<slug>.md`, following the hybrid format at `../sddw-common/specs/design-task.md`.
 
 If the user wants changes, return to the relevant section in Phase 2.

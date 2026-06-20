@@ -11,7 +11,7 @@ description: >
 
 # sddw Self-Improve Step
 
-Analyse a completed feature's execution across all workflow steps. Identify gaps, errors, and patterns, then propose concrete improvements to sddw workflow components. This is Step 8 of the sddw workflow.
+Analyse a completed feature's execution across all workflow steps. Identify gaps, errors, and patterns, then propose concrete improvements to sddw workflow components. This is Step 8 of the sddw workflow — the final step.
 
 ## Setup
 
