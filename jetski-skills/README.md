@@ -55,13 +55,15 @@ echo "1) Antigravity (~/.gemini/antigravity)"
 echo "2) Antigravity CLI (~/.gemini/antigravity-cli)"
 echo "3) Jetski (~/.gemini/jetski)"
 echo "4) Jetski CLI (~/.gemini/jetski-cli)"
-read -p "Choose (1-4): " choice
+echo "5) Antigravity IDE (~/.gemini/antigravity-ide)"
+read -p "Choose (1-5): " choice
 
 case $choice in
   1) D="antigravity";;
   2) D="antigravity-cli";;
   3) D="jetski";;
   4) D="jetski-cli";;
+  5) D="antigravity-ide";;
   *) echo "Invalid choice"; exit 1;;
 esac
 
@@ -117,13 +119,15 @@ echo "1) Antigravity (~/.gemini/antigravity)"
 echo "2) Antigravity CLI (~/.gemini/antigravity-cli)"
 echo "3) Jetski (~/.gemini/jetski)"
 echo "4) Jetski CLI (~/.gemini/jetski-cli)"
-read -p "Choose (1-4): " choice
+echo "5) Antigravity IDE (~/.gemini/antigravity-ide)"
+read -p "Choose (1-5): " choice
 
 case $choice in
   1) D="antigravity";;
   2) D="antigravity-cli";;
   3) D="jetski";;
   4) D="jetski-cli";;
+  5) D="antigravity-ide";;
   *) echo "Invalid choice"; exit 1;;
 esac
 
