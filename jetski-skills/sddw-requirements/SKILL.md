@@ -55,7 +55,7 @@ Follow the three-phase flow defined in `./references/questionnaire.md`, adapted 
 ## Next Step
 
 After the user approves the requirements, suggest:
-> Run `/clear` to free up context.
+> Start a new conversation to free up context.
 > If you have an existing codebase, run `sddw code-analysis <feature-name>` to ground design decisions in the actual code.
 > Otherwise, go straight to `sddw design-and-taskify <feature-name>` (recommended default).
 >

@@ -34,6 +34,7 @@ Written after a task is implemented. Stored in the implement folder as `task-<N>
 - Difficulties SHALL include resolution, not just the problem
 - Notes section is optional — omit if nothing useful to add
 - SHALL NOT modify the original task file (task-N-*.md) — it remains as the spec
+- On a rework after a CHANGES REQUESTED task review, SHALL update the existing report: keep the earlier commits, add the new ones, and note which review findings were fixed
 
 **Example:**
 > # Task 1 Completion: Create password reset token migration and model

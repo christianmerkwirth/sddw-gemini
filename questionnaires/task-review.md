@@ -13,9 +13,9 @@ Understand what the task was supposed to do and what actually changed.
 **Step 1 — Task selection:**
 
 If no `--task` flag provided:
-List tasks that have a completion report (`.done.md`) but no review report (`.review.md`), then use `AskUserQuestion` with each as an option:
+List tasks that have a completion report (`.done.md`) and either no review report (`.review.md`) or a review with verdict CHANGES REQUESTED. Then use `ask_user` with `type: "choice"` and each task as an option:
 - "Task 1: [name]" — implemented, not yet reviewed
-- "Task 2: [name]" — implemented, not yet reviewed
+- "Task 2: [name]" — reworked after CHANGES REQUESTED, re-review
 Question: "Which task would you like to review?"
 
 If `--task` flag provided, confirm the task is reviewable:
@@ -58,7 +58,7 @@ Each finding cites `file:line` and a severity (Blocker / Major / Minor).
 
 *In `--auto`: classify all findings autonomously.*
 
-If a finding's severity is ambiguous, use `AskUserQuestion` with options:
+If a finding's severity is ambiguous, use `ask_user` with `type: "choice"` and options:
 - "Blocker — [why it must be fixed before proceeding]"
 - "Major — [why it should be fixed]"
 - "Minor — [why it's optional]"

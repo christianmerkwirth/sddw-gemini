@@ -69,4 +69,4 @@ Follow the three-phase flow defined in `./references/questionnaire.md`:
 ## Next Step
 
 After the user approves the design, suggest:
-> Run `/clear` to free up context, then `sddw taskify <feature-name>`
+> Start a new conversation to free up context, then `sddw taskify <feature-name>`

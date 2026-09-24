@@ -17,6 +17,7 @@ Analyse a completed feature's execution across all workflow steps. Identify gaps
 
 1. **Parse arguments:** Extract `<feature-name>` and `--auto` flag from the user's message.
 2. **Read common rules:** Read `../sddw-common/common-rules.md` and follow all rules throughout this step.
+3. **Read specs:** Read `../sddw-common/specs/improvement-report.md`, `../sddw-common/specs/verification-report.md`, `../sddw-common/specs/task-completion.md`. They define the formats this step reads and writes.
 
 ## Goal
 

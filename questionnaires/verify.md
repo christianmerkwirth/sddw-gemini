@@ -15,9 +15,10 @@ Understand the current state of the feature. Load artifacts and identify the ver
 Present a status table showing:
 - Total tasks: [count design tasks]
 - Completed: [count .done.md files]
+- Reviewed: [count APPROVED .review.md files]; list tasks not reviewed or with CHANGES REQUESTED
 - Pending: [list incomplete tasks]
 
-If there are pending tasks, use `AskUserQuestion`:
+If there are pending tasks, use `ask_user` with `type: "choice"` and options:
 - "Verify completed tasks only (Recommended)" — verify what's been implemented so far
 - "Wait — implement remaining tasks first" — redirect to implement
 
@@ -34,13 +35,13 @@ Scan the project for test configuration:
 If detected:
 > "I'll run tests using [runner]. Any specific test command or flags I should use instead?"
 
-Use `AskUserQuestion` with options:
+Use `ask_user` with `type: "choice"` and options:
 - "Yes, use [detected command] (Recommended)"
 - "I'll provide a different command"
 
 Wait for response.
 
-If not detected, use `AskUserQuestion`:
+If not detected, use `ask_user` with `type: "choice"` and options:
 - "No tests — skip test execution"
 - "I'll provide the test command"
 
@@ -70,7 +71,7 @@ For each FR, present the verification result:
 
 *In `--auto`: classify all results autonomously.*
 
-If there are ambiguous results, use `AskUserQuestion` with options:
+If there are ambiguous results, use `ask_user` with `type: "choice"` and options:
 - "Pass — [reason why it could be acceptable]"
 - "Fail — [reason why it should be fixed]"
 - "Partial — [explanation]"
@@ -99,16 +100,16 @@ If any FRs are fail or partial, propose remediation tasks:
 > "I'd create these remediation tasks:"
 > 1. Task [N+1]: Fix [description] (FR-01) — fixes [specific issue]
 > 2. Task [N+2]: Add [description] (FR-03) — covers [uncovered criteria]
-> "Each task follows the same format as design tasks and can be run with `/sddw:implement`."
+> "Each task follows the same format as design tasks and can be run with `/sddw:implement`, then reviewed with `/sddw:task-review`."
 
-Use `AskUserQuestion`:
+Use `ask_user` with `type: "choice"` and options:
 - "Create all remediation tasks (Recommended)"
 - "Create selected tasks — I'll specify which"
 - "Skip — no remediation tasks needed"
 
 Wait for response.
 
-If "selected": use `AskUserQuestion` with each proposed task as a multi-select option.
+If "selected": use `ask_user` with `type: "choice"` and `multiSelect: true`, with each proposed task as an option.
 
 ### 3.3 Generate
 

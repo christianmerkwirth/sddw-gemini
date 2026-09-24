@@ -27,7 +27,7 @@ Steps 5 and 6 form a per-task loop: implement a task, then review it. Repeat for
 | Self-Improve | `sddw self-improve <feature>` | `.sddw/<feature>/self-improve/report.md` |
 
 Additional skills:
-- `sddw design-and-taskify <feature>` — Combined alias: run design and taskify in one shot
+- `sddw design-and-taskify <feature>` — Combined alias: run design and taskify in one shot. (Skill names use hyphens; the Gemini CLI command is `/sddw:design_and_taskify`.)
 - `sddw chat <feature>` — Fast-track interaction with a feature (quick edits, questions, updates)
 - `sddw help` — Show workflow overview and feature status
 
@@ -68,13 +68,11 @@ esac
 DEST="$HOME/.gemini/$D/skills"
 mkdir -p "$DEST"
 
-# Symlink each skill + the shared resources directory
+# Symlink each skill and the shared sddw-common directory.
+# -n replaces an existing link instead of following it into the repo.
 for d in jetski-skills/sddw-*/; do
-  ln -sf "$(pwd)/$d" "$DEST/$(basename "$d")"
+  ln -sfn "$(pwd)/${d%/}" "$DEST/$(basename "$d")"
 done
-
-# Also symlink the shared resources (specs and common rules)
-ln -sf "$(pwd)/jetski-skills/sddw-common" "$DEST/sddw-common"
 
 echo "Successfully installed to $DEST"
 ```
@@ -90,14 +88,14 @@ SDDW_DIR=/path/to/sddw-gemini  # adjust to where you cloned the repo
 
 mkdir -p "$PROJECT_DIR/.agent/skills"
 
+# Symlink each skill and the shared sddw-common directory.
+# -n replaces an existing link instead of following it into the repo.
 for d in "$SDDW_DIR"/jetski-skills/sddw-*/; do
-  ln -sf "$d" "$PROJECT_DIR/.agent/skills/$(basename "$d")"
+  ln -sfn "${d%/}" "$PROJECT_DIR/.agent/skills/$(basename "$d")"
 done
-
-ln -sf "$SDDW_DIR/jetski-skills/sddw-common" "$PROJECT_DIR/.agent/skills/sddw-common"
 ```
 
-> **Note:** The `sddw-common/` symlink is required — skills reference shared spec templates and common rules via `../sddw-common/` relative paths.
+> **Note:** The loop also links `sddw-common/`. That link is required — skills reference shared spec templates and common rules via `../sddw-common/` relative paths.
 
 ### Verify installation
 
@@ -137,7 +135,6 @@ echo "Successfully uninstalled from $HOME/.gemini/$D/skills"
 
 ```bash
 rm -f .agent/skills/sddw-*
-rm -f .agent/skills/sddw-common
 ```
 
 ## Skills
@@ -170,7 +167,7 @@ Pass `--auto` in your message to the agent, e.g.: `sddw requirements my-feature 
 ## Directory Structure
 
 ```
-sddw-skills/
+jetski-skills/
 ├── sddw-common/                        # Shared resources (not a skill itself)
 │   ├── common-rules.md                  # Interaction rules, path resolution, anti-patterns
 │   └── specs/                           # Output format templates

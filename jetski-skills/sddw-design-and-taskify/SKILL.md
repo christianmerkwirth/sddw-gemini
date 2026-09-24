@@ -68,4 +68,4 @@ Follow the monolithic 3-phase flow defined in `./references/questionnaire.md`.
 ## Next Step
 
 After generating the design and task files, suggest:
-> Run `/clear` to free up context, then `sddw implement <feature-name> --task 1`
+> Start a new conversation to free up context, then `sddw implement <feature-name> --task 1`

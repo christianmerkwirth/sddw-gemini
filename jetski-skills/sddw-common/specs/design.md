@@ -1,6 +1,6 @@
 ## Design File Format
 
-Cross-cutting design artefact written by `/sddw:design` (or `/sddw:design_and_taskify`). Captures architecture, data models, shared interface contracts, and design decisions for a feature. Task files reference this artefact via `design.md §<Section>` pointers rather than duplicating its content.
+Cross-cutting design artefact written by the `sddw-design` skill (or `sddw-design-and-taskify`). Captures architecture, data models, shared interface contracts, and design decisions for a feature. Task files reference this artefact via `design.md §<Section>` pointers rather than duplicating its content.
 
 **Location:** `.sddw/<feature-name>/design/design.md`
 
