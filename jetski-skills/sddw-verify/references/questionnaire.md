@@ -15,6 +15,7 @@ Understand the current state of the feature. Load artifacts and identify the ver
 Present a status table showing:
 - Total tasks: [count design tasks]
 - Completed: [count .done.md files]
+- Reviewed: [count APPROVED .review.md files]; list tasks not reviewed or with CHANGES REQUESTED
 - Pending: [list incomplete tasks]
 
 If there are pending tasks, present options:
@@ -99,7 +100,7 @@ If any FRs are fail or partial, propose remediation tasks:
 > "I'd create these remediation tasks:"
 > 1. Task [N+1]: Fix [description] (FR-01) — fixes [specific issue]
 > 2. Task [N+2]: Add [description] (FR-03) — covers [uncovered criteria]
-> "Each task follows the same format as design tasks and can be run with `sddw implement`."
+> "Each task follows the same format as design tasks and can be run with `sddw implement`, then reviewed with `sddw task-review`."
 
 Present options:
 1. "Create all remediation tasks (Recommended)"

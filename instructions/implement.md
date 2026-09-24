@@ -25,6 +25,12 @@ Use the Project path from `<resolved-sddw-path>/<feature-name>/requirements.md` 
 
 Check `Depends on:` — if dependencies are not yet complete, warn the user.
 
+**Step 3 — Read the task review report (if it exists):**
+
+Read `<resolved-sddw-path>/<feature-name>/task-review/task-<N>-*.review.md`.
+
+If its verdict is **CHANGES REQUESTED**, this run is a rework. Its scope is the Blocker and Major findings in that report — fix those, and do not re-implement the whole task. Tell the user which findings you will address. After the rework, suggest re-running `/sddw:task-review <feature> --task <N>`.
+
 Reference only if needed:
 - `<resolved-sddw-path>/code-analysis.md` — for codebase patterns and conventions (may not exist)
 - `<resolved-sddw-path>/<feature-name>/requirements.md` — if acceptance criteria need clarification
@@ -77,17 +83,15 @@ If Selective TDD or no preference specified, use TDD for tasks involving busines
 
 ## Linting and Formatting Protocol
 
-Make sure that code is clean and well formatted.  Adhere to global as well as project and workspace specific formatting
-and linting rules. Strive to produce code that is readable and properly commented.
+Make sure that code is clean and well formatted. Adhere to global as well as project and workspace specific formatting and linting rules. Strive to produce code that is readable and properly commented.
 
 ---
 
 ## Commit Protocol
- 
+
 One task = one commit. Commit after tests pass, never before.
- 
-Understand which version control system is used. In case, replace all calls to `git` below with the equivalent
-statement for the actually used version control system. 
+
+Find out which version control system the project uses. If it is not git, replace each `git` command below with the equivalent command for that system.
 
 **Stage individually:**
 ```
@@ -149,7 +153,7 @@ Deviations during implementation are normal. Classify and handle:
 After the task commit(s), write a completion report following the task-completion spec:
 `.sddw/<feature-name>/implement/tasks/task-<N>-<slug>.done.md`
 
-Create the `implement/tasks/` directory if it does not exist. The report documents what was done, deviations, and difficulties. This enables `/sddw:help status` to show task completion and provides context for future tasks.
+Create the `implement/tasks/` directory if it does not exist. On a rework (see Prerequisites, Step 3), update the existing report: keep the earlier commits and add the new ones, so that task review sees the full diff. The report documents what was done, deviations, and difficulties. This enables `/sddw:help status` to show task completion and provides context for future tasks.
 
 ## Output
 

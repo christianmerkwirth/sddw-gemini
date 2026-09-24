@@ -22,13 +22,15 @@ Read the feature artifacts from `<resolved-sddw-path>/<feature-name>/`:
 
 If the verification report does not exist, stop and suggest running `/sddw:verify` first. Self-improve requires a completed feature lifecycle to analyse.
 
-Also read the current sddw workflow components that may be improved:
+Also read the current sddw workflow components that may be improved. `<extension-path>` is the value of the `<extension_path>` tag at the top of this prompt:
 
 | Component | Path |
 |-----------|------|
-| Instructions | `${extensionPath}/instructions/*.md` |
-| Questionnaires | `${extensionPath}/questionnaires/*.md` |
-| Specs | `${extensionPath}/specs/*.md` |
+| Instructions | `<extension-path>/instructions/*.md` |
+| Questionnaires | `<extension-path>/questionnaires/*.md` |
+| Specs | `<extension-path>/specs/*.md` |
+
+If `<extension-path>` is inside `~/.gemini/extensions/`, the extension is an installed copy, not a linked clone. Changes there are lost on the next `gemini extensions update`. Tell the user before applying changes, and recommend applying them to their clone of the sddw-gemini repo instead.
 
 ## Process
 
@@ -141,4 +143,4 @@ Each proposal SHALL include:
 └── report.md
 ```
 
-And optionally, modifications to workflow files in `${extensionPath}/` (only with user approval).
+And optionally, modifications to workflow files in `<extension-path>/` (only with user approval).

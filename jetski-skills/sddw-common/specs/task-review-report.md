@@ -49,7 +49,7 @@ Written after the task-review step reviews a single completed task. Stored at `.
 ## Verdict
 **[APPROVED | CHANGES REQUESTED]** — [one-line rationale]
 
-[If CHANGES REQUESTED: "Re-run `sddw implement <feature> --task <N>` to address the blockers above, then re-review."]
+[If CHANGES REQUESTED: "Re-run `sddw implement <feature> --task <N>` to address the blockers and majors above, then re-run `sddw task-review <feature> --task <N>`."]
 ```
 
 **Rules:**
@@ -98,8 +98,8 @@ Written after the task-review step reviews a single completed task. Stored at `.
 > - Deviations match completion report
 >
 > ## Findings
-> 1. **Blocker** `auth/token.py:31` — `is_valid()` uses `<` instead of `<=`, accepting tokens at the exact expiry instant (Criteria Conformance, FR-02 done criterion).
->    - **Fix:** Change comparison to `<=` and ensure `test_token_expiry` passes.
+> 1. **Blocker** `auth/token.py:31` — `is_valid()` checks `now <= expires_at`, so it accepts a token at the exact expiry instant (Criteria Conformance, FR-02 done criterion).
+>    - **Fix:** Change the check to `now < expires_at` and make sure `test_token_expiry` passes.
 > 2. **Major** `tests/test_token.py` — no coverage for timezone-aware expiry (Test Quality, FR-02 acceptance criterion).
 >    - **Fix:** Add a test exercising an aware `datetime`.
 > 3. **Minor** `auth/token.py:9` — unused helper `_now()` (Code Quality).
@@ -108,4 +108,4 @@ Written after the task-review step reviews a single completed task. Stored at `.
 > ## Verdict
 > **CHANGES REQUESTED** — boundary bug fails an acceptance criterion and a required scenario is untested.
 >
-> Re-run `sddw implement password-reset --task 2` to address the blockers above, then re-review.
+> Re-run `sddw implement password-reset --task 2` to address the blockers and majors above, then re-run `sddw task-review password-reset --task 2`.

@@ -16,6 +16,7 @@ Implement a single task from the design spec. This is Step 5 of the sddw workflo
 
 1. **Parse arguments:** Extract `<feature-name>`, `--task <N>`, and `--auto` flag from the user's message.
 2. **Read common rules:** Read `../sddw-common/common-rules.md` and follow all rules throughout this step.
+3. **Read specs:** Read `../sddw-common/specs/design-task.md`, `../sddw-common/specs/task-completion.md`. They define the formats this step reads and writes.
 
 ## Input
 
@@ -39,6 +40,12 @@ Read `<resolved-sddw-path>/<feature-name>/design/tasks/task-<N>-*.md`.
 Use the Project path from `<resolved-sddw-path>/<feature-name>/requirements.md` as the working directory for implementation.
 
 Check `Depends on:` — if dependencies are not yet complete, warn the user.
+
+**Step 3 — Read the task review report (if it exists):**
+
+Read `<resolved-sddw-path>/<feature-name>/task-review/task-<N>-*.review.md`.
+
+If its verdict is **CHANGES REQUESTED**, this run is a rework. Its scope is the Blocker and Major findings in that report — fix those, and do not re-implement the whole task. Tell the user which findings you will address. After the rework, suggest re-running `sddw task-review <feature> --task <N>`.
 
 Reference only if needed:
 - `<resolved-sddw-path>/code-analysis.md` — for codebase patterns and conventions (may not exist)
@@ -100,7 +107,7 @@ Make sure that code is clean and well formatted. Adhere to global as well as pro
 
 One task = one commit. Commit after tests pass, never before.
 
-Understand which version control system is used. In case, replace all calls to `git` below with the equivalent statement for the actually used version control system.
+Find out which version control system the project uses. If it is not git, replace each `git` command below with the equivalent command for that system.
 
 **Stage individually:**
 ```
@@ -162,7 +169,7 @@ Deviations during implementation are normal. Classify and handle:
 After the task commit(s), write a completion report following the task-completion spec at `../sddw-common/specs/task-completion.md`:
 `.sddw/<feature-name>/implement/tasks/task-<N>-<slug>.done.md`
 
-Create the `implement/tasks/` directory if it does not exist. The report documents what was done, deviations, and difficulties. This enables the help status command to show task completion and provides context for future tasks.
+Create the `implement/tasks/` directory if it does not exist. On a rework (see Prerequisites, Step 3), update the existing report: keep the earlier commits and add the new ones, so that task review sees the full diff. The report documents what was done, deviations, and difficulties. This enables the help status command to show task completion and provides context for future tasks.
 
 ## Output
 
@@ -173,5 +180,5 @@ Create the `implement/tasks/` directory if it does not exist. The report documen
 ## Next Step
 
 After completing a task, suggest reviewing it before moving on:
-> Run `/clear` to free up context, then `sddw task-review <feature-name> --task <N>` to review this task.
+> Start a new conversation to free up context, then `sddw task-review <feature-name> --task <N>` to review this task.
 The task-review step then routes you to the next unblocked task, or to `sddw verify` once all tasks are implemented and approved.

@@ -2,7 +2,7 @@
 
 `sddw` is a **spec-driven development workflow**, packaged here as a **Gemini CLI extension** (`gemini-extension.json`, `GEMINI.md`). Its cleverness is almost entirely *organizational*: there is no runtime, no code — just markdown files (and thin `.toml` command wrappers) arranged into a grid. Understanding it means understanding two axes.
 
-> Note: this document describes the top-level Gemini extension. A parallel Claude Code port lives under `jetski-skills/`; it expresses the same grid as skill folders and uses `@`-style includes instead of the `.toml` + `!{cat ...}` mechanism described below.
+> Note: this document describes the top-level Gemini extension. A parallel Antigravity (Jetski) port lives under `jetski-skills/`. It expresses the same grid as skill folders: each `SKILL.md` reads its questionnaire and the shared specs at run time, instead of the `.toml` + `!{cat ...}` inlining described below.
 
 ## The Big Idea: a 2D grid of markdown
 
@@ -46,7 +46,7 @@ Why this particular cut? Because these four things **change for different reason
 - The **questionnaire** (dialog) changes when you want a smoother conversation.
 - The **instructions** (rules) change when you discover process bugs.
 
-You can improve *how Claude asks questions* without touching *what it produces*, and vice versa. That's the whole payoff.
+You can improve *how the agent asks questions* without touching *what it produces*, and vice versa. That's the whole payoff.
 
 ### What each column actually contains
 
@@ -72,7 +72,7 @@ You can improve *how Claude asks questions* without touching *what it produces*,
 
 Two files break the grid pattern on purpose:
 
-1. **`instructions/common.md`** — the *shared base class*. Rules every step inherits: interaction modes (`--auto` vs interactive), path resolution for `.sddw/`, the mandate to use `AskUserQuestion`, and global anti-patterns. Every command inlines it first. This is **DRY for prompts**: the `--auto` semantics live in one place, not duplicated across steps. (Counts: 11 commands, 12 instruction files, 9 questionnaires, 8 specs. `common` is the extra instruction file; the alias steps `help`/`chat` need neither questionnaire nor spec, and several specs are shared across steps — which is why the columns aren't equal height.)
+1. **`instructions/common.md`** — the *shared base class*. Rules every step inherits: interaction modes (`--auto` vs interactive), path resolution for `.sddw/`, the mandate to use the `ask_user` tool, and global anti-patterns. Every command inlines it first. This is **DRY for prompts**: the `--auto` semantics live in one place, not duplicated across steps. (Counts: 11 commands, 12 instruction files, 9 questionnaires, 8 specs. `common` is the extra instruction file; the alias steps `help`/`chat` need neither questionnaire nor spec, and several specs are shared across steps — which is why the columns aren't equal height.)
 
 2. **`self-improve`** — the *reflexive loop*. It reads a finished feature's artifacts (deviations, difficulties, remediation tasks) and proposes edits **back into the grid itself** — patching an instruction, a questionnaire, or a spec. The architecture is designed to be modified by its own output. Because concerns are cleanly separated, an improvement can target exactly one cell with a surgical diff.
 

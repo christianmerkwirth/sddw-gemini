@@ -18,13 +18,14 @@ Review a single completed implementation task before moving on. This is Step 6 o
 
 1. **Parse arguments:** Extract `<feature-name>`, `--task <N>`, and `--auto` flag from the user's message.
 2. **Read common rules:** Read `../sddw-common/common-rules.md` and follow all rules throughout this step.
+3. **Read specs:** Read `../sddw-common/specs/design-task.md`, `../sddw-common/specs/task-completion.md`, `../sddw-common/specs/task-review-report.md`. They define the formats this step reads and writes.
 
 ## Input
 
 - `<feature-name>` — the feature being reviewed
 - `--task <N>` — the task number to review (e.g., `--task 1`)
 
-If no `--task` is provided, list tasks that have a completion report but no review report and ask the user which to review.
+If no `--task` is provided, list tasks that have a completion report and either no review report or a review with verdict CHANGES REQUESTED. Ask the user which to review.
 
 ## Goal
 
@@ -128,8 +129,8 @@ For the task under review:
 
 After the review:
 - If **APPROVED** and unblocked tasks remain:
-  > Task <N> approved. Run `/clear` to free up context, then `sddw implement <feature> --task <next-N>`.
+  > Task <N> approved. Start a new conversation to free up context, then `sddw implement <feature> --task <next-N>`.
 - If **APPROVED** and all tasks are implemented and reviewed:
-  > All tasks approved. Run `/clear` to free up context, then `sddw verify <feature>` to check everything works against requirements.
+  > All tasks approved. Start a new conversation to free up context, then `sddw verify <feature>` to check everything works against requirements.
 - If **CHANGES REQUESTED**:
   > Re-run `sddw implement <feature> --task <N>` to address the blocking findings, then re-run `sddw task-review <feature> --task <N>`.

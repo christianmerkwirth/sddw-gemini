@@ -61,4 +61,4 @@ Follow the three-phase flow defined in `./references/questionnaire.md`:
 ## Next Step
 
 After the user approves the code analysis, suggest:
-> Run `/clear` to free up context, then `sddw design <feature-name>`
+> Start a new conversation to free up context, then `sddw design <feature-name>`

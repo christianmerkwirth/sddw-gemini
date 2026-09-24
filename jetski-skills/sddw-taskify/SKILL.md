@@ -49,4 +49,4 @@ Task files written to: `<resolved-sddw-path>/<feature-name>/design/tasks/task-<N
 ## Next Step
 
 After generating the task files, suggest:
-> Run `/clear` to free up context, then `sddw implement <feature-name> --task 1`
+> Start a new conversation to free up context, then `sddw implement <feature-name> --task 1`

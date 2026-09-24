@@ -1,6 +1,6 @@
 # The Architecture of `sddw` (Agent Skills edition)
 
-`sddw` is a **spec-driven development workflow**. This directory packages it as a set of **Agent Skills** for Antigravity / Claude Code (per the README, installed into `~/.gemini/<env>/skills/` or a project's `.agent/skills/`). Like the Gemini extension, its cleverness is almost entirely *organizational*: there is no runtime, no code — just markdown files arranged into a grid. Understanding it means understanding two axes.
+`sddw` is a **spec-driven development workflow**. This directory packages it as a set of **Agent Skills** for Antigravity / Jetski (per the README, installed into `~/.gemini/<env>/skills/` or a project's `.agent/skills/`). Like the Gemini extension, its cleverness is almost entirely *organizational*: there is no runtime, no code — just markdown files arranged into a grid. Understanding it means understanding two axes.
 
 > Note: this document describes the **skills** variant in `jetski-skills/`. A parallel **Gemini CLI extension** lives at the repository root (`commands/ instructions/ questionnaires/ specs/`); it expresses the same grid but composes each step from `.toml` command files using `!{cat ${extensionPath}/...}` inlining. The key difference here is that a step is a *skill folder*, discovered by trigger phrase, that **reads its companion files at runtime** rather than having them concatenated upfront.
 
@@ -42,7 +42,7 @@ Why this cut still holds: these things **change for different reasons and at dif
 - The **questionnaire** (dialog) changes when you want a smoother conversation.
 - The **instructions** (rules) change when you discover process bugs.
 
-You can improve *how Claude asks questions* without touching *what it produces*, and vice versa. That's the whole payoff.
+You can improve *how the agent asks questions* without touching *what it produces*, and vice versa. That's the whole payoff.
 
 ### What each column actually contains
 
@@ -88,7 +88,7 @@ Three invariants make this work:
 
 - **Every step produces exactly one spec type.** (one output shape per row)
 - **Every step reads specs from previous steps.** (inputs come from disk, not chat)
-- **`/clear` between steps.** Each step runs in a *fresh, focused context window*.
+- **A new conversation between steps.** Each step runs in a *fresh, focused context window*.
 
 This is the real reason for the whole design: it's a strategy for **beating context-window limits**. A big feature won't fit in one conversation, so the work is chopped into stages where each stage reads only the artifacts it needs, does one job, writes one artifact, and clears. The filesystem (`.sddw/<feature>/...`) is the persistent memory between otherwise-amnesiac sessions.
 
@@ -112,7 +112,7 @@ The columns aren't equal height: command+instructions are fused into `SKILL.md`,
 3. **Reuse** — `common-rules.md` and the `specs/` library are shared by every skill instead of being copied; `design.md` is referenced by every task rather than duplicated.
 4. **Progressive disclosure** — `SKILL.md` stays lean; the questionnaire and spec are pulled in only when the step actually needs them, keeping the working context tight.
 5. **Reviewability** — the *spec* is the deliverable, version-controlled and peer-reviewable before any code exists.
-6. **Context discipline** — the pipeline + `/clear` keeps every step inside the window where the model is accurate.
+6. **Context discipline** — the pipeline + a new conversation per step keeps every step inside the window where the model is accurate.
 7. **Self-evolution** — `self-improve` closes the loop by editing the grid that produced the work.
 
 ## One-sentence summary

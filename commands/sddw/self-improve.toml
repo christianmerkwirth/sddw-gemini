@@ -1,5 +1,6 @@
 prompt = """
 <feature_name> {{args}} </feature_name>
+<extension_path> !{echo ${extensionPath}} </extension_path>
 
 # COMMON RULES
 !{cat ${extensionPath}/instructions/common.md}

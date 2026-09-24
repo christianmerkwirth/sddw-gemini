@@ -7,7 +7,7 @@ Review a single completed implementation task before moving on. This is Step 6 o
 - `<feature-name>` — the feature being reviewed
 - `--task <N>` — the task number to review (e.g., `--task 1`)
 
-If no `--task` is provided, list tasks that have a completion report but no review report and ask the user which to review.
+If no `--task` is provided, list tasks that have a completion report and either no review report or a review with verdict CHANGES REQUESTED. Ask the user which to review.
 
 ## Goal
 

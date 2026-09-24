@@ -16,6 +16,7 @@ Read the feature artifacts from `<resolved-sddw-path>/<feature-name>/`:
 | Design | `<feature-name>/design/design.md` | Yes |
 | Task files | `<feature-name>/design/tasks/task-*.md` | Yes |
 | Completion reports | `<feature-name>/implement/tasks/*.done.md` | Yes |
+| Task review reports | `<feature-name>/task-review/*.review.md` | No |
 | Code analysis | `code-analysis.md` | No |
 
 If requirements or task files do not exist, stop and suggest running the missing step first.
@@ -29,7 +30,7 @@ Use the Project path from `<resolved-sddw-path>/<feature-name>/requirements.md` 
 
 Follow the three-phase flow defined in the questionnaire:
 
-1. **Assess** — Load all artifacts, identify the test runner, check which tasks are complete vs pending. *In `--auto`: assess fully autonomously.*
+1. **Assess** — Load all artifacts, identify the test runner, check which tasks are complete vs pending, and check each completed task's review verdict. Warn the user about tasks that are not reviewed or whose verdict is CHANGES REQUESTED. *In `--auto`: assess fully autonomously.*
 
 2. **Verify** — Run the test suite, cross-check each FR's acceptance criteria against implementation, review done criteria from task files, and check for deviations noted in completion reports. Classify each FR as pass, fail, or partial. *In `--auto`: classify all autonomously.*
 

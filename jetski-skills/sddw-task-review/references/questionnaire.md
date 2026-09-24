@@ -13,9 +13,9 @@ Understand what the task was supposed to do and what actually changed.
 **Step 1 — Task selection:**
 
 If no `--task` flag provided:
-List tasks that have a completion report (`.done.md`) but no review report (`.review.md`), then present each as an option:
+List tasks that have a completion report (`.done.md`) and either no review report (`.review.md`) or a review with verdict CHANGES REQUESTED. Then present each as an option:
 - Task 1: [name] — implemented, not yet reviewed
-- Task 2: [name] — implemented, not yet reviewed
+- Task 2: [name] — reworked after CHANGES REQUESTED, re-review
 Question: "Which task would you like to review?"
 
 Wait for response.

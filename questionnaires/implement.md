@@ -13,7 +13,7 @@ Understand which task to execute and any blockers. One question at a time.
 **Step 1 — Task selection:**
 
 If no --task flag provided:
-Present the task table as context text, then use `ask_user` with `type: "choice"` with each pending task as an option:
+Present the task table as context text, then use `ask_user` with `type: "choice"` with each pending task and each task whose review verdict is CHANGES REQUESTED as an option:
 - Task 1: [name] (Depends on: none)
 - Task 2: [name] (Depends on: task 1)
 Question: "Which task would you like to implement?"

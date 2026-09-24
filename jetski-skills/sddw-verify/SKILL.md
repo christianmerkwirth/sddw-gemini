@@ -32,6 +32,7 @@ Read the feature artifacts from `<resolved-sddw-path>/<feature-name>/`:
 | Design | `<feature-name>/design/design.md` | Yes |
 | Task files | `<feature-name>/design/tasks/task-*.md` | Yes |
 | Completion reports | `<feature-name>/implement/tasks/*.done.md` | Yes |
+| Task review reports | `<feature-name>/task-review/*.review.md` | No |
 | Code analysis | `code-analysis.md` | No |
 
 If requirements or task files do not exist, stop and suggest running the missing step first.
@@ -45,7 +46,7 @@ Use the Project path from `<resolved-sddw-path>/<feature-name>/requirements.md` 
 
 Follow the three-phase flow defined in `./references/questionnaire.md`:
 
-1. **Assess** — Load all artifacts, identify the test runner, check which tasks are complete vs pending. *In `--auto`: assess fully autonomously.*
+1. **Assess** — Load all artifacts, identify the test runner, check which tasks are complete vs pending, and check each completed task's review verdict. Warn the user about tasks that are not reviewed or whose verdict is CHANGES REQUESTED. *In `--auto`: assess fully autonomously.*
 
 2. **Verify** — Run the test suite, cross-check each FR's acceptance criteria against implementation, review done criteria from task files, and check for deviations noted in completion reports. Classify each FR as pass, fail, or partial. *In `--auto`: classify all autonomously.*
 
@@ -141,6 +142,6 @@ And optionally:
 
 After verification:
 - If all checks pass, suggest:
-  > Feature verified. Run `/clear` to free up context, then `sddw self-improve <feature-name>` to analyse the execution and improve the workflow.
+  > Feature verified. Start a new conversation to free up context, then `sddw self-improve <feature-name>` to analyse the execution and improve the workflow.
 - If remediation tasks were created, suggest:
-  > Run `/clear` to free up context, then `sddw implement <feature-name> --task <N>` for each remediation task. After remediation, re-run `sddw verify <feature-name>`.
+  > Start a new conversation to free up context, then `sddw implement <feature-name> --task <N>` and `sddw task-review <feature-name> --task <N>` for each remediation task. After remediation, re-run `sddw verify <feature-name>`.
